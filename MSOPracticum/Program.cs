@@ -15,23 +15,23 @@ namespace MSOPracticum
             {
                 modeSelected = program.ChooseMode();
             }
-            Command cmd = new();
-            cmd.comp = null;
-            Point point = new Point();
-            point.X = 0; point.Y = 0;
-            string direction = "east";
-            while (Console.ReadLine() != "End")
-            {
-                string line = Console.ReadLine();
-                if (cmd.IsValid(line))
-                {
-                    cmd.comp = line;
-                    cmd.RunCommand(cmd.comp, direction, point);
-                    Console.WriteLine(cmd.comp);
-                }
-                else { Console.WriteLine("Error, invalid command, please try again"); }
-            }
-            Console.WriteLine("End state " + (point.X, point.Y) + " facing " + direction);
+            //Command cmd = new();
+            //cmd.comp = null;
+            //Point point = new Point();
+            //point.X = 0; point.Y = 0;
+            //string direction = "east";
+            //while (Console.ReadLine() != "End")
+            //{
+            //    string line = Console.ReadLine();
+            //    if (cmd.IsValid(line))
+            //    {
+            //        cmd.comp = line;
+            //        cmd.RunCommand(cmd.comp, direction, point);
+            //        Console.WriteLine(cmd.comp);
+            //    }
+            //    else { Console.WriteLine("Error, invalid command, please try again"); }
+            //}
+            //Console.WriteLine("End state " + (point.X, point.Y) + " facing " + direction);
         }
         private bool ChooseMode()
         {
@@ -43,7 +43,8 @@ namespace MSOPracticum
             {
                 // temporary implementation
                 case 1:
-                    Reader reader = new Reader();
+                    Parser parser = new Parser();
+                    parser.StartParser();
                     return true;
 
                 case 2:

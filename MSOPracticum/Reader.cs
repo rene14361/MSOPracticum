@@ -2,16 +2,15 @@
 
 class Reader
 {
-    public string input;
+    private string userInput; // the string that is the result of reading the file
 
-    // Constructor which automatically starts the file reading process.
     public Reader()
     {
-        EnterFilePath();
+
     }
 
     // Method responsible for getting the user to enter a file path until a file is successfully read.
-    private void EnterFilePath()
+    public string EnterFilePath()
     {
         Console.WriteLine("Please enter the full path of the text file.\nAn example: C:\\Users\\User\\Documents\\sample.txt\nPlease note that a space will be added for each new line (besides those before the first character) while reading your text file.");
         bool successfulRead = false;
@@ -20,6 +19,7 @@ class Reader
             string path = Console.ReadLine();
             successfulRead = TryRead(path);
         }
+        return userInput;
     }
     
     // Tries to read the file at the provided path, returns a bool denoting whether the file was successfully read.
@@ -27,16 +27,7 @@ class Reader
     {
         try
         {
-            StreamReader streamReader = new StreamReader(path);
-            string line, text = String.Empty;
-            while ((line = streamReader.ReadLine()) != null)
-            {
-                // checks whether text string is empty to avoid adding a space to the beginning of the string
-                if (text == String.Empty) { text = line; }
-                // if it's not empty add the space and the next line
-                else { text += " " + line; }
-            }
-            input = text;
+            userInput = Read(path);
             return true;
         }
         catch (Exception e)
@@ -45,5 +36,20 @@ class Reader
             Console.WriteLine("Please try again.");
             return false;
         }
+    }
+
+    // Reads the text file at the place denoted by the file path and converts it into a single string. Automatically adds spaces for each new line, except at the beginning.
+    public string Read(string path)
+    {
+        StreamReader streamReader = new StreamReader(path);
+        string line, text = String.Empty;
+        while ((line = streamReader.ReadLine()) != null)
+        {
+            // checks whether text string is empty to avoid adding a space to the beginning of the string
+            if (text == String.Empty) { text = line; }
+            // if it's not empty add the space and the next line
+            else { text += " " + line; }
+        }
+        return text;
     }
 }
