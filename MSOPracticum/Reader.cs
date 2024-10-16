@@ -29,12 +29,12 @@ class Reader
         {
             StreamReader streamReader = new StreamReader(path);
             string line, text = String.Empty;
-            while((line = streamReader.ReadLine()) != null)
+            while ((line = streamReader.ReadLine()) != null)
             {
                 // checks whether text string is empty to avoid adding a space to the beginning of the string
-                if (text == String.Empty) text = line;
+                if (text == String.Empty) { text = line; }
                 // if it's not empty add the space and the next line
-                else text += " " + line;
+                else { text += " " + line; }
             }
             input = text;
             return true;
