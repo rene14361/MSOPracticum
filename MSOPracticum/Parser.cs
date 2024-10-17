@@ -16,10 +16,6 @@ class Parser
         // if mode 1
         Reader reader = new Reader();
         string input = reader.EnterFilePath();
-        ParseInput(input);
-        Console.WriteLine(input);
-        CallCommands(commandList);
-        return;
 
         detectedInvalid = false;
         ParseInput(input);
@@ -29,7 +25,7 @@ class Parser
             return;
         }
 
-        //CallCommands(commandList);
+        CallCommands(commandList);
 
     }
 
