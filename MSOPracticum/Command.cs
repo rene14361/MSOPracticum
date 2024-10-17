@@ -18,106 +18,91 @@ namespace MSOPracticum
 
         }
 
-        public string comp;
-
+        string direction = "east";
+        Point point = new Point();
         public void ExecuteCommands()
         {
-            Point point = new Point();
-            string direction = "east";
             for (int i = 0; i < commandList.Count; i++)
             {
-                RunCommand(commandList[i], direction, point);
+                RunCommand(commandList[i], i, commandNestingLevels[i]);
             }
             Console.WriteLine("End state " + (point.X, point.Y) + " facing " + direction);
         }
 
-        private void RunCommand(string cmd, string direction, Point point)
+        private void RunCommand(string cmd, int currentCommand, int currentNestingLevel)
         {
             if (cmd.Split(" ")[0] == "Repeat")
             {
-                Repeat(cmd); return;
+                Repeat(cmd, currentCommand, currentNestingLevel); return;
             }
             else if (cmd.Split(" ")[0] == "Move")
             {
-                Move(cmd, direction, point); return;
+                Move(cmd); return;
             }
             else if (cmd.Split(" ")[0] == "Turn" && cmd.Split(" ")[1] == "left")
             {
-                TurnLeft(direction); return;
+                TurnLeft(); return;
             }
             else if (cmd.Split(" ")[0] == "Turn" && cmd.Split(" ")[1] == "right")
             {
-                TurnRight(direction); return;
+                TurnRight(); return;
             }
         }
 
-        public void Repeat(string cmd)
+        public void Repeat(string cmd, int currentCommand, int currentNestinglevel)
         {
-            for (int j = 0; j < int.Parse(cmd.Split()[1]); j++)
+            int commandCount = 0;
+            int currentCommandCount = 1;
+            for (int i = 0; i < int.Parse(cmd.Split(" ")[1]); i++)
             {
-
+                commandCount = 0;
+                currentCommandCount = 1;
+                foreach (int j in commandNestingLevels.Where(n => n > currentNestinglevel && commandList.Count > currentCommand + currentCommandCount))
+                {
+                    RunCommand(commandList[currentCommand + currentCommandCount], currentCommand + currentCommandCount, currentNestinglevel);
+                    commandCount++;
+                    currentCommandCount++;
+                }
             }
+            commandList.RemoveRange(currentCommand + 1, commandCount);
         }
 
-        public void Move(string cmd, string direction, Point point)
+        public void Move(string cmd)
         {
             int val = int.Parse(cmd.Split(" ")[1]);
-            if (direction == "east")
+            switch (direction)
             {
-                point.X += val;
-            }
-            else if (direction == "north")
-            {
-                point.Y -= val;
-            }
-            else if (direction == "west")
-            {
-                point.X -= val;
-            }
-            else if (direction == "south")
-            {
-                point.Y += val;
+                case "south":
+                    point.Y += val; break;
+                case "west":
+                    point.X -= val; break;
+                case "north":
+                    point.Y -= val; break;
+                default:
+                    point.X += val; break;
             }
         }
 
-        public void TurnLeft(string direction)
+        public void TurnLeft()
         {
-            if (direction == "east")
+            direction = direction switch
             {
-                direction = "north";
-            }
-            else if (direction == "north")
-            {
-                direction = "west";
-            }
-            else if (direction == "west")
-            {
-                direction = "south";
-            }
-            else if (direction == "south")
-            {
-                direction = "east";
-            }
+                "south" => "east",
+                "west" => "south",
+                "north" => "west",
+                _ => "north",
+            };
         }
 
-        public void TurnRight(string direction)
+        public void TurnRight()
         {
-            if (direction == "east")
+            direction = direction switch
             {
-                direction = "south";
-            }
-            else if (direction == "south")
-            {
-                direction = "west";
-            }
-            else if (direction == "west")
-            {
-                direction = "north";
-            }
-            else if (direction == "north")
-            {
-                direction = "east";
-            }
+                "south" => "west",
+                "west" => "north",
+                "north" => "east",
+                _ => "south",
+            };
         }
     }
 }
