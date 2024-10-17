@@ -118,11 +118,11 @@ class Parser
         if (comp != null)
         {
             if (comp == "Turn left" || comp == "Turn right")
-            { return true; }
+                return true;
             else if (comp.Split(" ")[0] == "Move")
-            { return true; }
+                return true;
             else if (comp.Split().Count() < 3)
-            { return false; }
+                return false;
             else if (comp.Split(" ")[0] == "Repeat"
                      && comp.Split(" ")[2] == "times"
                      && int.TryParse(comp.Split(" ")[1], result: out v))

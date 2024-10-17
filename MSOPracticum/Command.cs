@@ -51,81 +51,58 @@ namespace MSOPracticum
 
         public void Repeat(string cmd, int currentCommand, int currentNestinglevel)
         {
-            int counter = 0;
-            int othercount = 1;
-            for (int j = 0; j < int.Parse(cmd.Split(" ")[1]); j++)
+            int commandCount = 0;
+            int currentCommandCount = 1;
+            for (int i = 0; i < int.Parse(cmd.Split(" ")[1]); i++)
             {
-                counter = 0;
-                othercount = 1;
-                foreach (int i in commandNestingLevels.Where(n => n > currentNestinglevel && commandList.Count > currentCommand + othercount))
+                commandCount = 0;
+                currentCommandCount = 1;
+                foreach (int j in commandNestingLevels.Where(n => n > currentNestinglevel && commandList.Count > currentCommand + currentCommandCount))
                 {
-                    RunCommand(commandList[currentCommand + othercount], currentCommand + othercount, currentNestinglevel);
-                    counter++;
-                    othercount++;
+                    RunCommand(commandList[currentCommand + currentCommandCount], currentCommand + currentCommandCount, currentNestinglevel);
+                    commandCount++;
+                    currentCommandCount++;
                 }
             }
-            commandList.RemoveRange(currentCommand + 1, counter);
+            commandList.RemoveRange(currentCommand + 1, commandCount);
         }
 
         public void Move(string cmd)
         {
             int val = int.Parse(cmd.Split(" ")[1]);
-            if (direction == "east")
+            switch (direction)
             {
-                point.X += val;
-            }
-            else if (direction == "north")
-            {
-                point.Y -= val;
-            }
-            else if (direction == "west")
-            {
-                point.X -= val;
-            }
-            else if (direction == "south")
-            {
-                point.Y += val;
+                case "south":
+                    point.Y += val; break;
+                case "west":
+                    point.X -= val; break;
+                case "north":
+                    point.Y -= val; break;
+                default:
+                    point.X += val; break;
             }
         }
 
         public void TurnLeft()
         {
-            if (direction == "east")
+            direction = direction switch
             {
-                direction = "north";
-            }
-            else if (direction == "north")
-            {
-                direction = "west";
-            }
-            else if (direction == "west")
-            {
-                direction = "south";
-            }
-            else if (direction == "south")
-            {
-                direction = "east";
-            }
+                "south" => "east",
+                "west" => "south",
+                "north" => "west",
+                _ => "north",
+            };
         }
 
         public void TurnRight()
         {
-            if (direction == "east")
+            direction = direction switch
             {
-                direction = "south";
-            }
-            else if (direction == "south")
-            {
-                direction = "west";
-            }
-            else if (direction == "west")
-            {
-                direction = "north";
-            }
-            else if (direction == "north")
-            {
-                direction = "east";
-            }
+                "south" => "west",
+                "west" => "north",
+                "north" => "east",
+                _ => "south",
+            };
         }
     }
 }

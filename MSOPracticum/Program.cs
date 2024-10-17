@@ -1,7 +1,4 @@
-﻿using System.Globalization;
-using System.Security.Cryptography;
-
-namespace MSOPracticum
+﻿namespace MSOPracticum
 {
     class Program
     {
@@ -9,11 +6,7 @@ namespace MSOPracticum
         {
             Program program = new Program();
             Console.WriteLine("Welcome to our Programming Learning App!\nPlease enter \u001b[1m1\u001b[0m if you want to import your own commands, or \u001b[1m2\u001b[0m if you want to use example commands.");
-            bool modeSelected = false;
-            while (!modeSelected)
-            {
-                modeSelected = program.ChooseMode();
-            }
+            ChooseMode();
             //Command cmd = new();
             //cmd.comp = null;
             //Point point = new Point();
@@ -33,27 +26,33 @@ namespace MSOPracticum
             //Console.WriteLine("End state " + (point.X, point.Y) + " facing " + direction);
 
         }
-        private bool ChooseMode()
+        private static void ChooseMode()
         {
             string input = Console.ReadLine();
             int number = 0;
             int.TryParse(input, out number);
+            bool modeSelected = false;
+            while (!modeSelected)
+            { 
+                switch (number)
+                {
+                    // temporary implementation
+                    case 1:
+                        Parser parser = new Parser();
+                        parser.StartParser();
+                        modeSelected = true;
+                        break;
 
-            switch (number)
-            {
-                // temporary implementation
-                case 1:
-                    Parser parser = new Parser();
-                    parser.StartParser();
-                    return true;
+                    case 2:
+                        // not implemented
+                        modeSelected = true;
+                        break;
 
-                case 2:
-                    // not implemented
-                    return true;
-
-                default:
-                    Console.WriteLine("Invalid input, please enter \u001b[1m1\u001b[0m or \u001b[1m2\u001b[0m.");
-                    return false;
+                    default:
+                        Console.WriteLine("Invalid input, please enter \u001b[1m1\u001b[0m or \u001b[1m2\u001b[0m.");
+                        modeSelected = false;
+                        break;
+                }
             }
         }
     }
