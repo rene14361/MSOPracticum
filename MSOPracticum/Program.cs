@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Security.Cryptography;
 
 namespace MSOPracticum
@@ -32,6 +31,7 @@ namespace MSOPracticum
             //    else { Console.WriteLine("Error, invalid command, please try again"); }
             //}
             //Console.WriteLine("End state " + (point.X, point.Y) + " facing " + direction);
+
         }
         private bool ChooseMode()
         {

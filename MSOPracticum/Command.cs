@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +9,8 @@ namespace MSOPracticum
     public class Command
     {
         List<string> commandList = new List<string>();
-        public Command (List<string> commandList) 
-        { 
+        public Command (List<string> commandList, string direction, Point point)
+        {
             this.commandList = commandList;
         }
 

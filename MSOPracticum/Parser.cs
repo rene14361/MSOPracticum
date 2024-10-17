@@ -16,7 +16,12 @@ class Parser
         // if mode 1
         Reader reader = new Reader();
         string input = reader.EnterFilePath();
+        ParseInput(input);
         Console.WriteLine(input);
+        Point point = new Point();
+        string direction = "east";
+        CallCommands(commandList, direction, point);
+        Console.WriteLine("End state " + (point.X, point.Y) + " facing " + direction);
         return;
 
         detectedInvalid = false;
@@ -27,14 +32,13 @@ class Parser
             return;
         }
 
-        CallCommands(commandList);
+        //CallCommands(commandList);
 
     }
 
     private void ParseInput(string input)
     {
         List<string> splitInput = new List<string>(input.Split(" "));
-        List<string> commandList = new List<string>();
 
         int counter = 0; // used to count the position in the original string for debug purposes
         // we use a while-loop here instead of a for-loop so that the length of the loop is being adjusted as the loop is running
@@ -78,7 +82,7 @@ class Parser
 
             counter += 2;
             // no invalid input was detected, add it to list of commands.
-            commandList.Append(tempCommand);
+            commandList.Add(tempCommand);
         }
 
         // successfully parsed with no invalid input
@@ -113,9 +117,13 @@ class Parser
         else { return false; }
     }
 
-    private void CallCommands(List<string> commandList) 
+    private void CallCommands(List<string> commandList, string direction, Point point)
     {
-        Command commands = new Command(commandList);
+        Command commands = new Command(commandList, direction, point);
+        for (int i = 0; i < commandList.Count; i++)
+        {
+            commands.RunCommand(commandList[i], direction, point);
+        }
     }
 
 }
