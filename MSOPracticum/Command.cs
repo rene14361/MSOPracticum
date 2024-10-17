@@ -9,49 +9,64 @@ namespace MSOPracticum
     public class Command
     {
         List<string> commandList = new List<string>();
-        public Command (List<string> commandList)
+        List<int> commandNestingLevels = new List<int>();
+        public Command (List<string> commandList, List<int> commandNestingLevels)
         {
-            Point point = new Point();
-            string direction = "east";
             this.commandList = commandList;
+            this.commandNestingLevels = commandNestingLevels;
+
+        }
+
+        string direction = "east";
+        Point point = new Point();
+        public void ExecuteCommands()
+        {
             for (int i = 0; i < commandList.Count; i++)
             {
-                RunCommand(commandList[i], direction, point);
+                RunCommand(commandList[i], i, commandNestingLevels[i]);
             }
             Console.WriteLine("End state " + (point.X, point.Y) + " facing " + direction);
         }
 
-        public string comp;
-
-        public void RunCommand(string cmd, string direction, Point point)
+        private void RunCommand(string cmd, int currentCommand, int currentNestingLevel)
         {
             if (cmd.Split(" ")[0] == "Repeat")
             {
-                Repeat(cmd); return;
+                Repeat(cmd, currentCommand, currentNestingLevel); return;
             }
             else if (cmd.Split(" ")[0] == "Move")
             {
-                Move(cmd, direction, point); return;
+                Move(cmd); return;
             }
             else if (cmd.Split(" ")[0] == "Turn" && cmd.Split(" ")[1] == "left")
             {
-                TurnLeft(direction); return;
+                TurnLeft(); return;
             }
             else if (cmd.Split(" ")[0] == "Turn" && cmd.Split(" ")[1] == "right")
             {
-                TurnRight(direction); return;
+                TurnRight(); return;
             }
         }
 
-        public void Repeat(string cmd)
+        public void Repeat(string cmd, int currentCommand, int currentNestinglevel)
         {
-            for (int j = 0; j < int.Parse(cmd.Split()[1]); j++)
+            int counter = 0;
+            int othercount = 1;
+            for (int j = 0; j < int.Parse(cmd.Split(" ")[1]); j++)
             {
-
+                counter = 0;
+                othercount = 1;
+                foreach (int i in commandNestingLevels.Where(n => n > currentNestinglevel && commandList.Count > currentCommand + othercount))
+                {
+                    RunCommand(commandList[currentCommand + othercount], currentCommand + othercount, currentNestinglevel);
+                    counter++;
+                    othercount++;
+                }
             }
+            commandList.RemoveRange(currentCommand + 1, counter);
         }
 
-        public void Move(string cmd, string direction, Point point)
+        public void Move(string cmd)
         {
             int val = int.Parse(cmd.Split(" ")[1]);
             if (direction == "east")
@@ -72,7 +87,7 @@ namespace MSOPracticum
             }
         }
 
-        public void TurnLeft(string direction)
+        public void TurnLeft()
         {
             if (direction == "east")
             {
@@ -92,7 +107,7 @@ namespace MSOPracticum
             }
         }
 
-        public void TurnRight(string direction)
+        public void TurnRight()
         {
             if (direction == "east")
             {

@@ -5,6 +5,7 @@ class Parser
 {
     private bool detectedInvalid;
     private List<string> commandList = new List<string>();
+    private List<int> commandNestingLevels = new List<int>();
 
     public Parser()
     {
@@ -16,6 +17,7 @@ class Parser
         // if mode 1
         Reader reader = new Reader();
         string input = reader.EnterFilePath();
+        Console.WriteLine(input);
 
         detectedInvalid = false;
         ParseInput(input);
@@ -24,20 +26,35 @@ class Parser
             Console.WriteLine("Please adjust your input and run the app again.");
             return;
         }
-
-        CallCommands(commandList);
-
+        CallCommands(commandList, commandNestingLevels);
     }
 
     private void ParseInput(string input)
     {
+        Console.WriteLine("Starting parsing. Please note that our parser assumes that you're using tabs for nesting, not 4/8 spaces.");
+
+        // note: both of these lists end up being of equal length
         List<string> splitInput = new List<string>(input.Split(" "));
+        List<int> inputNestingLevels = new List<int>();
+
+        // for-loop responsible for counting and removing tabs from each string
+        for (int i = 0; i < splitInput.Count; i++)
+        {
+            int tabs = 0;
+
+            // each tab is considered a single whitespace in C#, so this works
+            foreach(char c in splitInput[i]) if (Char.IsWhiteSpace(c)) tabs++;
+            inputNestingLevels.Add(tabs);
+
+            // trims the whitespace from the strings since it's no longer needed and enables later conditionals to work correctly
+            splitInput[i] = splitInput[i].Trim();
+        }
 
         int counter = 0; // used to count the position in the original string for debug purposes
         // we use a while-loop here instead of a for-loop so that the length of the loop is being adjusted as the loop is running
         while(splitInput.Count > 0 && !detectedInvalid)
         {
-            int i = 0; // index, resets to 0 with each loop
+            int i = 0; // index always 0, used to interact with splitInput
             // if there is no next string to pair the command with, mark the input as invalid.
             if (i + 1 > splitInput.Count - 1)
             {
@@ -48,7 +65,10 @@ class Parser
 
             string tempCommand = splitInput[i] + " " + splitInput[i + 1];
             splitInput.RemoveAt(i); splitInput.RemoveAt(i);
-;
+            // make the nesting level of the first word the nesting level of the command
+            int tempCommandNesting = inputNestingLevels[i];
+            inputNestingLevels.RemoveAt(i); inputNestingLevels.RemoveAt(i);
+
             // if the temp command is invalid, there's still a chance it could be made valid by adding a third string from splitInput
             if (!IsValid(tempCommand))
             {
@@ -62,6 +82,7 @@ class Parser
                 
                 tempCommand += " " + splitInput[i];
                 splitInput.RemoveAt(i);
+                inputNestingLevels.RemoveAt(i);
 
                 // if the temp command is still invalid with a third added string, mark it as invalid.
                 if (!IsValid(tempCommand))
@@ -74,8 +95,9 @@ class Parser
             }
 
             counter += 2;
-            // no invalid input was detected, add it to list of commands.
+            // no invalid input was detected, add the command and the nesting level to list of commands and nesting levels.
             commandList.Add(tempCommand);
+            commandNestingLevels.Add(tempCommandNesting);
         }
 
         // successfully parsed with no invalid input
@@ -110,9 +132,10 @@ class Parser
         else { return false; }
     }
 
-    private void CallCommands(List<string> commandList)
+    private void CallCommands(List<string> commandList, List<int> commandNestingLevels)
     {
-        Command commands = new Command(commandList);
+        Command commands = new Command(commandList, commandNestingLevels);
+        commands.ExecuteCommands();
     }
 
 }
