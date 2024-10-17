@@ -1,5 +1,4 @@
-﻿using MSOPracticum;
-using System.Runtime.CompilerServices;
+﻿namespace MSOPracticum;
 
 class Parser
 {
@@ -12,13 +11,26 @@ class Parser
         
     }
 
-    public void StartParser()
+    public void StartParser(int mode, int metrics)
     {
-        // if mode 1
         Reader reader = new Reader();
-        string input = reader.EnterFilePath();
-        Console.WriteLine(input);
+        string input;
+        switch (mode)
+        {
+            case 1:
+                input = reader.EnterFilePath();
+                break;
 
+            case 2:
+                input = Example.GetExample();
+                break;
+
+            default:
+                Console.WriteLine("Mode is incorrect, defaulting to mode 1.");
+                input = reader.EnterFilePath();
+                break;
+        }
+        
         detectedInvalid = false;
         ParseInput(input);
         if (detectedInvalid)
@@ -26,12 +38,16 @@ class Parser
             Console.WriteLine("Please adjust your input and run the app again.");
             return;
         }
-        CallCommands(commandList, commandNestingLevels);
+
+        // if metrics mode is 2 or 3, calculate metrics
+        if (metrics >= 2) CalculateMetrics();
+        // if metrics mode is 1 or 3, go on with the program
+        if (metrics != 2) CallCommands(commandList, commandNestingLevels);
     }
 
     private void ParseInput(string input)
     {
-        Console.WriteLine("Starting parsing. Please note that our parser assumes that you're using tabs for nesting, not 4/8 spaces.");
+        Console.WriteLine("Started parsing. Please note that our parser is case sensitive and assumes that you're using tabs for nesting, not 4/8 spaces.");
 
         // note: both of these lists end up being of equal length
         List<string> splitInput = new List<string>(input.Split(" "));
@@ -58,7 +74,7 @@ class Parser
             // if there is no next string to pair the command with, mark the input as invalid.
             if (i + 1 > splitInput.Count - 1)
             {
-                Console.WriteLine($"String \"" + splitInput[i] + "\" at index " + counter + " has no next string to form a command with.");
+                Console.WriteLine($"String \"{splitInput[i]}\" at index {counter} has no next string to form a command with.");
                 detectedInvalid = true;
                 return;
             }
@@ -75,7 +91,7 @@ class Parser
                 // check whether a third string can be added
                 if (i + 1 > splitInput.Count - 1)
                 {
-                    Console.WriteLine($"String \"" + tempCommand + "\" at index " + counter + " is invalid or has no next string to form a command with.");
+                    Console.WriteLine($"String \"{tempCommand}\" at index {counter} is invalid or has no next string to form a command with.");
                     detectedInvalid = true;
                     return;
                 }
@@ -87,7 +103,7 @@ class Parser
                 // if the temp command is still invalid with a third added string, mark it as invalid.
                 if (!IsValid(tempCommand))
                 {
-                    Console.WriteLine($"String \"" + tempCommand + "\" at index " + counter + " is invalid.");
+                    Console.WriteLine($"String \"{tempCommand}\" at index {counter} is invalid.");
                     detectedInvalid = true;
                     return;
                 }
@@ -102,6 +118,16 @@ class Parser
 
         // successfully parsed with no invalid input
         Console.WriteLine("Done parsing.");
+    }
+
+    private void CalculateMetrics() 
+    {
+        int commandAmount = commandList.Count;
+        int maxNesting = commandNestingLevels.Max();
+        int repeatAmount = 0;
+        foreach (string command in commandList) if (command.Contains("Repeat")) repeatAmount++;
+
+        Console.WriteLine($"These are the metrics of the commands:\nNumber of commands: \u001b[1m{commandAmount}\u001b[0m\nMaximum nesting level: \u001b[1m{maxNesting}\u001b[0m\nNumber of repeat commands: \u001b[1m{repeatAmount}\u001b[0m");
     }
 
     private bool IsValid(string comp)
@@ -137,5 +163,4 @@ class Parser
         Command commands = new Command(commandList, commandNestingLevels);
         commands.ExecuteCommands();
     }
-
 }
