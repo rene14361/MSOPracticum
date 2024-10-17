@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,11 +10,20 @@ namespace MSOPracticum
     public class Command
     {
         List<string> commandList = new List<string>();
-        public Command (List<string> commandList)
+        List<int> commandNestingLevels = new List<int>();
+        public Command (List<string> commandList, List<int> commandNestingLevels)
+        {
+            this.commandList = commandList;
+            this.commandNestingLevels = commandNestingLevels;
+
+        }
+
+        public string comp;
+
+        public void ExecuteCommands()
         {
             Point point = new Point();
             string direction = "east";
-            this.commandList = commandList;
             for (int i = 0; i < commandList.Count; i++)
             {
                 RunCommand(commandList[i], direction, point);
@@ -21,9 +31,7 @@ namespace MSOPracticum
             Console.WriteLine("End state " + (point.X, point.Y) + " facing " + direction);
         }
 
-        public string comp;
-
-        public void RunCommand(string cmd, string direction, Point point)
+        private void RunCommand(string cmd, string direction, Point point)
         {
             if (cmd.Split(" ")[0] == "Repeat")
             {
