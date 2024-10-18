@@ -2,6 +2,7 @@
 
 public class Parser
 {
+    private Reader reader = new Reader();
     private bool detectedInvalid;
     private List<string> commandList = new List<string>();
     private List<int> commandNestingLevels = new List<int>();
@@ -13,7 +14,6 @@ public class Parser
 
     public void StartParser(int mode, int metrics)
     {
-        Reader reader = new Reader();
         string input;
         switch (mode)
         {
