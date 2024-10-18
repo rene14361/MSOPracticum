@@ -1,6 +1,6 @@
 ﻿namespace MSOPracticum;
 
-class Example
+public class Example
 {
     private static string example1 = "Move 5 Turn left Move 2 Turn right Move 10 Turn right Move 2 Move 4 Turn left Turn left Move 1";
     private static string example2 = "Move 2 Repeat 5 times \tMove 2 \tTurn left \tMove 1 Turn right Move 1";

@@ -1,6 +1,6 @@
 ﻿namespace MSOPracticum;
 
-class Parser
+public class Parser
 {
     private bool detectedInvalid;
     private List<string> commandList = new List<string>();
@@ -8,7 +8,7 @@ class Parser
 
     public Parser()
     {
-        
+
     }
 
     public void StartParser(int mode, int metrics)
@@ -30,7 +30,7 @@ class Parser
                 input = reader.EnterFilePath();
                 break;
         }
-        
+
         detectedInvalid = false;
         ParseInput(input);
         if (detectedInvalid)
@@ -59,7 +59,7 @@ class Parser
             int tabs = 0;
 
             // each tab is considered a single whitespace in C#, so this works
-            foreach(char c in splitInput[i]) if (Char.IsWhiteSpace(c)) tabs++;
+            foreach (char c in splitInput[i]) if (Char.IsWhiteSpace(c)) tabs++;
             inputNestingLevels.Add(tabs);
 
             // trims the whitespace from the strings since it's no longer needed and enables later conditionals to work correctly
@@ -68,7 +68,7 @@ class Parser
 
         int counter = 0; // used to count the position in the original string for debug purposes
         // we use a while-loop here instead of a for-loop so that the length of the loop is being adjusted as the loop is running
-        while(splitInput.Count > 0 && !detectedInvalid)
+        while (splitInput.Count > 0 && !detectedInvalid)
         {
             int i = 0; // index always 0, used to interact with splitInput
             // if there is no next string to pair the command with, mark the input as invalid.
@@ -95,7 +95,7 @@ class Parser
                     detectedInvalid = true;
                     return;
                 }
-                
+
                 tempCommand += " " + splitInput[i];
                 splitInput.RemoveAt(i);
                 inputNestingLevels.RemoveAt(i);
@@ -120,7 +120,7 @@ class Parser
         Console.WriteLine("Done parsing.");
     }
 
-    private void CalculateMetrics() 
+    private void CalculateMetrics()
     {
         int commandAmount = commandList.Count;
         int maxNesting = commandNestingLevels.Max();

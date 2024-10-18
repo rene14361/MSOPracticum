@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -11,25 +12,23 @@ namespace MSOPracticum
     {
         List<string> commandList = new List<string>();
         List<int> commandNestingLevels = new List<int>();
-        public Command (List<string> commandList, List<int> commandNestingLevels)
+        Character chara = new Character();
+        public Command(List<string> commandList, List<int> commandNestingLevels)
         {
             this.commandList = commandList;
             this.commandNestingLevels = commandNestingLevels;
 
         }
-
-        string direction = "east";
-        Point point = new Point();
         string trace = "";
         public void ExecuteCommands()
-        {
+        { 
             for (int i = 0; i < commandList.Count; i++)
             {
                 RunCommand(commandList[i], i, commandNestingLevels[i]);
                 trace = trace + commandList[i] + ", ";
             }
             Console.WriteLine(trace);
-            Console.WriteLine("End state " + (point.X, point.Y) + " facing " + direction);
+            Console.WriteLine("End state " + (chara.position.X, chara.position.Y) + " facing " + chara.direction);
         }
 
         private void RunCommand(string cmd, int currentCommand, int currentNestingLevel)
@@ -74,22 +73,22 @@ namespace MSOPracticum
         public void Move(string cmd)
         {
             int val = int.Parse(cmd.Split(" ")[1]);
-            switch (direction)
+            switch (chara.direction)
             {
                 case "south":
-                    point.Y += val; break;
+                    chara.position.Y += val; break;
                 case "west":
-                    point.X -= val; break;
+                    chara.position.X -= val; break;
                 case "north":
-                    point.Y -= val; break;
+                    chara.position.Y -= val; break;
                 default:
-                    point.X += val; break;
+                    chara.position.X += val; break;
             }
         }
 
         public void TurnLeft()
         {
-            direction = direction switch
+            chara.direction = chara.direction switch
             {
                 "south" => "east",
                 "west" => "south",
@@ -100,7 +99,7 @@ namespace MSOPracticum
 
         public void TurnRight()
         {
-            direction = direction switch
+            chara.direction = chara.direction switch
             {
                 "south" => "west",
                 "west" => "north",
