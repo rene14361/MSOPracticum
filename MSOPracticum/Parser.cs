@@ -40,7 +40,7 @@ public class Parser
         }
 
         // if metrics mode is 2 or 3, calculate metrics
-        if (metrics >= 2) CalculateMetrics();
+        if (metrics >= 2) CalculateMetrics(commandList, commandNestingLevels);
         // if metrics mode is 1 or 3, go on with the program
         if (metrics != 2) CallCommands(commandList, commandNestingLevels);
     }
@@ -120,7 +120,7 @@ public class Parser
         Console.WriteLine("Done parsing.");
     }
 
-    private void CalculateMetrics()
+    private void CalculateMetrics(List<string> commandList, List<int> commandNestingLevels)
     {
         int commandAmount = commandList.Count;
         int maxNesting = commandNestingLevels.Max();
