@@ -1,14 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MSOPracticum
+﻿namespace MSOPracticum
 {
     public class Character
     {
-        public Point position = new Point();
+        public Point position = new Point(0,0);
         public string direction = "east";
+
+        private Character()
+        {
+
+        }
+
+        private static readonly Character _character = new Character();
+
+        public static Character GetCharacter()
+        {
+            return _character;
+        }
     }
 }

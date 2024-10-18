@@ -6,9 +6,9 @@
         {
             Program program = new Program();
             Console.WriteLine("Welcome to our Programming Learning App!");
-            int mode = ChooseInputMode();
-            int metrics = ChooseMetricsMode();
-            Start(mode, metrics);
+            int inputMode = ChooseInputMode();
+            int metricsMode = ChooseMetricsMode();
+            Start(inputMode, metricsMode);
         }
 
         private static int ChooseInputMode()

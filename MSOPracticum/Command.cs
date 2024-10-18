@@ -1,31 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MSOPracticum
+﻿namespace MSOPracticum
 {
     public class Command
     {
-        List<string> commandList = new List<string>();
-        List<int> commandNestingLevels = new List<int>();
-        Character chara = new Character();
+        private List<string> commandList = new List<string>();
+        private List<int> commandNestingLevels = new List<int>();
+        public Character chara = Character.GetCharacter();
+        private string trace = "";
+
         public Command(List<string> commandList, List<int> commandNestingLevels)
         {
             this.commandList = commandList;
             this.commandNestingLevels = commandNestingLevels;
-
         }
-        string trace = "";
+        
         public void ExecuteCommands()
         { 
             for (int i = 0; i < commandList.Count; i++)
             {
                 RunCommand(commandList[i], i, commandNestingLevels[i]);
-                trace = trace + commandList[i] + ", ";
+                trace = trace + commandList[i] + "; ";
             }
             Console.WriteLine(trace);
             Console.WriteLine("End state " + (chara.position.X, chara.position.Y) + " facing " + chara.direction);
