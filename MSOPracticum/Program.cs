@@ -58,7 +58,7 @@
         private static void Start(int mode, int metrics) 
         {
             Parser parser = new Parser();
-            parser.StartParser(mode, metrics);
+            parser.ExecuteParser(mode, metrics);
         }
     }
 }

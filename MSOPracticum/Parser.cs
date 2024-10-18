@@ -12,7 +12,7 @@ public class Parser
 
     }
 
-    public void StartParser(int mode, int metrics)
+    public void ExecuteParser(int mode, int metrics)
     {
         string input;
         switch (mode)
