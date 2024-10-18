@@ -2,7 +2,7 @@
 
 class Reader
 {
-    private string userInput; // the string that is the result of reading the file
+    private string fileContents; // the string that is the result of reading the file
 
     public Reader()
     {
@@ -19,7 +19,7 @@ class Reader
             string path = Console.ReadLine();
             successfulRead = TryRead(path);
         }
-        return userInput;
+        return fileContents;
     }
     
     // Tries to read the file at the provided path, returns a bool denoting whether the file was successfully read.
@@ -27,7 +27,7 @@ class Reader
     {
         try
         {
-            userInput = Read(path);
+            fileContents = Read(path);
             return true;
         }
         catch (Exception e)
