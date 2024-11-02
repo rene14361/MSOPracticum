@@ -79,5 +79,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MSOPracticum\MSOPracticum.csproj">
+      <Project>{6d2aa8ff-72eb-417b-9a85-6bce23e8966c}</Project>
+      <Name>MSOPracticum</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
