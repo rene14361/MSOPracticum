@@ -39,6 +39,7 @@
             this.Codetxtbx.Name = "Codetxtbx";
             this.Codetxtbx.Size = new System.Drawing.Size(295, 246);
             this.Codetxtbx.TabIndex = 1;
+            this.Codetxtbx.TextChanged += new System.EventHandler(this.Codetxtbx_TextChanged);
             // 
             // BtnRun
             // 
@@ -59,6 +60,7 @@
             this.Controls.Add(this.Codetxtbx);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
