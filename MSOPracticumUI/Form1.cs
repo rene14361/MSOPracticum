@@ -16,7 +16,12 @@ namespace MSOPracticumUI
 
         private void BtnRun_Click(object sender, EventArgs e)
         {
-            CharBox1.Image = ImgLst.Images[1];
+            pictureBox1.Image = MSOPracticumUI.Properties.Resources.Sprite_0003;
+        }
+
+        private void PictureBox1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
