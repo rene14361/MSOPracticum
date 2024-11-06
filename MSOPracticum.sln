@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSOtest", "MSOtest\MSOtest.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSOPracticumUI", "MSOPracticumUI\MSOPracticumUI.csproj", "{04C15CEF-21AD-41E4-90A5-7B4F65053C1E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSOPracticumPresenter", "MSOPracticumPresenter\MSOPracticumPresenter.csproj", "{E97AAD0D-2375-42CB-8245-E6EE21434F13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MSOPracticumForms", "MSOPracticumForms\MSOPracticumForms.csproj", "{6D7B2253-6A38-449D-9D4B-759CA36275C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{04C15CEF-21AD-41E4-90A5-7B4F65053C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04C15CEF-21AD-41E4-90A5-7B4F65053C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{04C15CEF-21AD-41E4-90A5-7B4F65053C1E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E97AAD0D-2375-42CB-8245-E6EE21434F13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E97AAD0D-2375-42CB-8245-E6EE21434F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E97AAD0D-2375-42CB-8245-E6EE21434F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E97AAD0D-2375-42CB-8245-E6EE21434F13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D7B2253-6A38-449D-9D4B-759CA36275C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D7B2253-6A38-449D-9D4B-759CA36275C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D7B2253-6A38-449D-9D4B-759CA36275C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D7B2253-6A38-449D-9D4B-759CA36275C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
