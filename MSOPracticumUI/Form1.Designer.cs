@@ -58,6 +58,14 @@
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.Metrics = new System.Windows.Forms.Button();
+            this.TxtOutput = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.BtnMode1 = new System.Windows.Forms.RadioButton();
+            this.BtnMode2 = new System.Windows.Forms.RadioButton();
+            this.BtnMode3 = new System.Windows.Forms.RadioButton();
+            this.TxtInput = new System.Windows.Forms.TextBox();
+            this.BtnFile = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).BeginInit();
@@ -88,7 +96,7 @@
             // 
             // BtnRun
             // 
-            this.BtnRun.Location = new System.Drawing.Point(565, 483);
+            this.BtnRun.Location = new System.Drawing.Point(309, 409);
             this.BtnRun.Name = "BtnRun";
             this.BtnRun.Size = new System.Drawing.Size(58, 26);
             this.BtnRun.TabIndex = 0;
@@ -336,11 +344,105 @@
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
+            // Metrics
+            // 
+            this.Metrics.Location = new System.Drawing.Point(373, 409);
+            this.Metrics.Name = "Metrics";
+            this.Metrics.Size = new System.Drawing.Size(0, 0);
+            this.Metrics.TabIndex = 28;
+            this.Metrics.Text = "Metrics";
+            this.Metrics.UseVisualStyleBackColor = true;
+            // 
+            // TxtOutput
+            // 
+            this.TxtOutput.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.TxtOutput.Location = new System.Drawing.Point(309, 441);
+            this.TxtOutput.Multiline = true;
+            this.TxtOutput.Name = "TxtOutput";
+            this.TxtOutput.ReadOnly = true;
+            this.TxtOutput.Size = new System.Drawing.Size(250, 100);
+            this.TxtOutput.TabIndex = 29;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(370, 393);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(34, 13);
+            this.label1.TabIndex = 32;
+            this.label1.Text = "Mode";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // BtnMode1
+            // 
+            this.BtnMode1.AutoSize = true;
+            this.BtnMode1.Location = new System.Drawing.Point(373, 414);
+            this.BtnMode1.Name = "BtnMode1";
+            this.BtnMode1.Size = new System.Drawing.Size(59, 17);
+            this.BtnMode1.TabIndex = 33;
+            this.BtnMode1.TabStop = true;
+            this.BtnMode1.Text = "Default";
+            this.BtnMode1.UseVisualStyleBackColor = true;
+            // 
+            // BtnMode2
+            // 
+            this.BtnMode2.AutoSize = true;
+            this.BtnMode2.Location = new System.Drawing.Point(438, 414);
+            this.BtnMode2.Name = "BtnMode2";
+            this.BtnMode2.Size = new System.Drawing.Size(59, 17);
+            this.BtnMode2.TabIndex = 34;
+            this.BtnMode2.TabStop = true;
+            this.BtnMode2.Text = "Metrics";
+            this.BtnMode2.UseVisualStyleBackColor = true;
+            // 
+            // BtnMode3
+            // 
+            this.BtnMode3.AutoSize = true;
+            this.BtnMode3.Location = new System.Drawing.Point(503, 414);
+            this.BtnMode3.Name = "BtnMode3";
+            this.BtnMode3.Size = new System.Drawing.Size(47, 17);
+            this.BtnMode3.TabIndex = 35;
+            this.BtnMode3.TabStop = true;
+            this.BtnMode3.Text = "Both";
+            this.BtnMode3.UseVisualStyleBackColor = true;
+            // 
+            // TxtInput
+            // 
+            this.TxtInput.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.TxtInput.Location = new System.Drawing.Point(309, 86);
+            this.TxtInput.Multiline = true;
+            this.TxtInput.Name = "TxtInput";
+            this.TxtInput.ReadOnly = true;
+            this.TxtInput.Size = new System.Drawing.Size(250, 274);
+            this.TxtInput.TabIndex = 36;
+            this.TxtInput.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // BtnFile
+            // 
+            this.BtnFile.FormattingEnabled = true;
+            this.BtnFile.Items.AddRange(new object[] {
+            "Custom",
+            "Basic",
+            "Advanced",
+            "Expert"});
+            this.BtnFile.Location = new System.Drawing.Point(12, 12);
+            this.BtnFile.Name = "BtnFile";
+            this.BtnFile.Size = new System.Drawing.Size(121, 21);
+            this.BtnFile.TabIndex = 37;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1048, 553);
+            this.Controls.Add(this.BtnFile);
+            this.Controls.Add(this.TxtInput);
+            this.Controls.Add(this.BtnMode3);
+            this.Controls.Add(this.BtnMode2);
+            this.Controls.Add(this.BtnMode1);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.TxtOutput);
+            this.Controls.Add(this.Metrics);
             this.Controls.Add(this.pictureBox21);
             this.Controls.Add(this.pictureBox22);
             this.Controls.Add(this.pictureBox23);
@@ -397,6 +499,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -430,6 +533,14 @@
         private System.Windows.Forms.PictureBox pictureBox23;
         private System.Windows.Forms.PictureBox pictureBox24;
         private System.Windows.Forms.PictureBox pictureBox25;
+        public System.Windows.Forms.Button Metrics;
+        private System.Windows.Forms.TextBox TxtOutput;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.RadioButton BtnMode1;
+        private System.Windows.Forms.RadioButton BtnMode2;
+        private System.Windows.Forms.RadioButton BtnMode3;
+        private System.Windows.Forms.TextBox TxtInput;
+        private System.Windows.Forms.ComboBox BtnFile;
     }
 }
 
