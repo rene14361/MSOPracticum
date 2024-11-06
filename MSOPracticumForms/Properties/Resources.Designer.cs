@@ -39,7 +39,7 @@ namespace MSOPracticumUI.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MSOPracticumUI.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MSOPracticumForms.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -65,7 +65,7 @@ namespace MSOPracticumUI.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap Sprite_0001 {
             get {
-                object obj = ResourceManager.GetObject("Sprite-0001", resourceCulture);
+                object obj = ResourceManager.GetObject("Sprite_0001", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -75,7 +75,7 @@ namespace MSOPracticumUI.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap Sprite_0002 {
             get {
-                object obj = ResourceManager.GetObject("Sprite-0002", resourceCulture);
+                object obj = ResourceManager.GetObject("Sprite_0002", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -85,7 +85,7 @@ namespace MSOPracticumUI.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap Sprite_0003 {
             get {
-                object obj = ResourceManager.GetObject("Sprite-0003", resourceCulture);
+                object obj = ResourceManager.GetObject("Sprite_0003", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -95,7 +95,7 @@ namespace MSOPracticumUI.Properties {
         /// </summary>
         internal static System.Drawing.Bitmap Sprite_0004 {
             get {
-                object obj = ResourceManager.GetObject("Sprite-0004", resourceCulture);
+                object obj = ResourceManager.GetObject("Sprite_0004", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
