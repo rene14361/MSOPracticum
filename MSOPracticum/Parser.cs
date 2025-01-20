@@ -1,15 +1,55 @@
-﻿namespace MSOPracticum;
+﻿using MSOPracticumPresenter;
+using System;
+using System.Net.Mail;
+using System.Runtime.InteropServices;
 
-public class Parser
+namespace MSOPracticum;
+
+public class Parser : ISubject
 {
     private Reader reader = new Reader();
     private bool detectedInvalid;
     private List<string> commandList = new List<string>();
     private List<int> commandNestingLevels = new List<int>();
+    private List<IObserver> _observers = new List<IObserver>();
+    public string state { get; set; }
+
 
     public Parser()
     {
+        AllocConsole(); // allocates a console window
+        ParserObserver observer = new ParserObserver();
+        Attach(observer);
+    }
 
+    // used to allocate a console window to this process
+    [DllImport("kernel32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    static extern bool AllocConsole();
+
+    public void Notify()
+    {
+        foreach (IObserver observer in _observers) observer.Update(this);
+    }
+
+    public void Attach(IObserver observer)
+    {
+        this._observers.Add(observer);
+    }
+
+    public void Detach(IObserver observer)
+    {
+        this._observers.Remove(observer);
+    }
+
+    public void ExecuteResponse(string response)
+    {
+        if (response != "Run") return;
+        string[] splitState = state.Split(",");
+        int mode = 3;
+        int metrics = 0;
+        int.TryParse(splitState[1], out metrics);
+        ExecuteParser(mode, metrics);
     }
 
     public void ExecuteParser(int mode, int metrics)
@@ -23,6 +63,10 @@ public class Parser
 
             case 2:
                 input = Example.GetExample();
+                break;
+
+            case 3:
+                input = state.Split(",")[2];
                 break;
 
             default:
@@ -127,7 +171,7 @@ public class Parser
         int repeatAmount = 0;
         foreach (string command in commandList) if (command.Contains("Repeat")) repeatAmount++;
 
-        Console.WriteLine($"These are the metrics of the commands:\nNumber of commands: \u001b[1m{commandAmount}\u001b[0m\nMaximum nesting level: \u001b[1m{maxNesting}\u001b[0m\nNumber of repeat commands: \u001b[1m{repeatAmount}\u001b[0m");
+        Console.WriteLine($"These are the metrics of the commands:\nNumber of commands: {commandAmount}\nMaximum nesting level: {maxNesting}\nNumber of repeat commands: {repeatAmount}");
     }
 
     private bool IsValid(string comp)

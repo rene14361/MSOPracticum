@@ -112,7 +112,7 @@
             this.performanceCounter1.InstanceLifetime = System.Diagnostics.PerformanceCounterInstanceLifetime.Global;
             this.performanceCounter1.InstanceName = "_Total";
             this.performanceCounter1.MachineName = ".";
-            this.performanceCounter1.RawValue = ((long)(148963242187));
+            //this.performanceCounter1.RawValue = ((long)(254492265625));
             this.performanceCounter1.ReadOnly = true;
             // 
             // ImgLst
@@ -444,12 +444,15 @@
             // 
             // TxtInput
             // 
+            this.TxtInput.AcceptsReturn = true;
+            this.TxtInput.AcceptsTab = true;
             this.TxtInput.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.TxtInput.Location = new System.Drawing.Point(360, 99);
             this.TxtInput.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.TxtInput.Multiline = true;
             this.TxtInput.Name = "TxtInput";
-            this.TxtInput.ReadOnly = true;
+            this.TxtInput.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.TxtInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.TxtInput.Size = new System.Drawing.Size(291, 316);
             this.TxtInput.TabIndex = 36;
             this.TxtInput.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
@@ -467,6 +470,8 @@
             this.BtnFile.Name = "BtnFile";
             this.BtnFile.Size = new System.Drawing.Size(140, 23);
             this.BtnFile.TabIndex = 37;
+            this.BtnFile.Text = "Custom";
+            this.BtnFile.TextChanged += new System.EventHandler(this.BtnFile_TextChanged);
             // 
             // Form1
             // 

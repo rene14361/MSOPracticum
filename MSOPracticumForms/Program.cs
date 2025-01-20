@@ -19,6 +19,7 @@ namespace MSOPracticumUI
             Application.SetCompatibleTextRenderingDefault(false);
             UIObserver observer = new UIObserver();
             Application.Run(new Form1(observer));
+            
         }
     }
 }

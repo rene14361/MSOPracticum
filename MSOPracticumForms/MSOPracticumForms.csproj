@@ -30,12 +30,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MSOPracticumPresenter\MSOPracticumPresenter.csproj" />
-    <ProjectReference Include="..\MSOPracticum\MSOPracticum.csproj" />
+    <Folder Include="Resources\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <ProjectReference Include="..\MSOPracticumPresenter\MSOPracticumPresenter.csproj" />
+    <ProjectReference Include="..\MSOPracticum\MSOPracticum.csproj" />
   </ItemGroup>
 
 </Project>

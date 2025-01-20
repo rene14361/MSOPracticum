@@ -37,7 +37,7 @@ public class Example
         }
     }
 
-    private static string ReturnExample(int n)
+    public static string ReturnExample(int n)
     {
         switch (n)
         {
