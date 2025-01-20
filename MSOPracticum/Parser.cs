@@ -5,21 +5,20 @@ using System.Runtime.InteropServices;
 
 namespace MSOPracticum;
 
-public class Parser : ISubject
+public class Parser : IComponent
 {
     private Reader reader = new Reader();
     private bool detectedInvalid;
     private List<string> commandList = new List<string>();
     private List<int> commandNestingLevels = new List<int>();
-    private List<IObserver> _observers = new List<IObserver>();
     public string state { get; set; }
+    public Presenter mediator { get; set; }
 
 
     public Parser()
     {
         AllocConsole(); // allocates a console window
-        ParserObserver observer = new ParserObserver();
-        Attach(observer);
+        mediator = Presenter.GetPresenter();
     }
 
     // used to allocate a console window to this process
@@ -27,29 +26,9 @@ public class Parser : ISubject
     [return: MarshalAs(UnmanagedType.Bool)]
     static extern bool AllocConsole();
 
-    public void Notify()
+    public void Receive(string message)
     {
-        foreach (IObserver observer in _observers) observer.Update(this);
-    }
 
-    public void Attach(IObserver observer)
-    {
-        this._observers.Add(observer);
-    }
-
-    public void Detach(IObserver observer)
-    {
-        this._observers.Remove(observer);
-    }
-
-    public void ExecuteResponse(string response)
-    {
-        if (response != "Run") return;
-        string[] splitState = state.Split(",");
-        int mode = 3;
-        int metrics = 0;
-        int.TryParse(splitState[1], out metrics);
-        ExecuteParser(mode, metrics);
     }
 
     public void ExecuteParser(int mode, int metrics)
@@ -66,7 +45,12 @@ public class Parser : ISubject
                 break;
 
             case 3:
-                input = state.Split(",")[2];
+                input = state;
+                break;
+
+            case 4:
+                // missing
+                input = "";
                 break;
 
             default:

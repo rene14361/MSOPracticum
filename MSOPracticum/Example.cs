@@ -52,7 +52,6 @@ public class Example
 
             default:
                 return "Invalid example";
-
         }
     }
 }

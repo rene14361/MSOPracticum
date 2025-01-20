@@ -1,45 +1,28 @@
 ﻿using System;
 using System.Windows.Forms;
 using MSOPracticum;
-using MSOPracticumPresenter;
 
 namespace MSOPracticumUI
 {
-    public partial class Form1 : Form, ISubject
+    public partial class Form1 : Form, IComponent
     {
-        private List<IObserver> _observers = new List<IObserver>();
         public string state { get; set; }
+        public Presenter mediator { get; set; }
 
-        public Form1(IObserver observer)
+        public Form1()
         {
-            Attach(observer);
+            mediator = Presenter.GetPresenter();
+            mediator.UIComponent = this;
             InitializeComponent();
         }
 
-        public void Notify()
+        public void Receive(string message)
         {
-            foreach (IObserver observer in _observers) observer.Update(this);
-        }
-
-        public void Attach(IObserver observer)
-        {
-            this._observers.Add(observer);
-        }
-
-        public void Detach(IObserver observer)
-        {
-            this._observers.Remove(observer);
-        }
-
-        public void ExecuteResponse(string response)
-        {
-            switch (response)
+            string[] splitMessage = message.Split(",");
+            switch (splitMessage[0])
             {
-                // create parser, pass the state, and notify its observer that it's ready to run
-                case "Parse":
-                    Parser parser = new Parser();
-                    parser.state = state;
-                    parser.Notify();
+                case "Input":
+                    TxtInput.Text = splitMessage[1];
                     break;
             }
         }
@@ -54,15 +37,15 @@ namespace MSOPracticumUI
             pictureBox1.Image = MSOPracticumUI.Properties.Resources.Sprite_0003;
 
             // picks state depending on selected output mode
-            if (BtnMode1.Checked) state = "Run,1,";
-            else if (BtnMode2.Checked) state = "Run,2,";
-            else state = "Run,3,";
+            if (BtnMode1.Checked) state = "Parse,1,";
+            else if (BtnMode2.Checked) state = "Parse,2,";
+            else state = "Parse,3,";
 
             // then adds selected input mode to the state followed by the commands
-            // state += BtnFile.Text + ",";
+            state += BtnFile.Text + ",";
             state += TxtInput.Text;
 
-            Notify();
+            mediator.Notify(this, state);
         }
 
         private void PictureBox1_Click(object sender, EventArgs e)
@@ -77,20 +60,8 @@ namespace MSOPracticumUI
 
         private void BtnFile_TextChanged(object sender, EventArgs e)
         {
-            switch (BtnFile.SelectedItem.ToString())
-            {
-                case "Basic":
-                    TxtInput.Text = Example.ReturnExample(1);
-                    break;
-
-                case "Advanced":
-                    TxtInput.Text = Example.ReturnExample(2);
-                    break;
-
-                case "Expert":
-                    TxtInput.Text = Example.ReturnExample(3);
-                    break;
-            }
+            state = "Input," + BtnFile.Text.ToString();
+            mediator.Notify(this, state);
         }
 
         private void label1_Click(object sender, EventArgs e)

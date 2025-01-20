@@ -1,4 +1,4 @@
-﻿using MSOPracticumPresenter;
+﻿using MSOPracticum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +17,7 @@ namespace MSOPracticumUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            UIObserver observer = new UIObserver();
-            Application.Run(new Form1(observer));
+            Application.Run(new Form1());
             
         }
     }
