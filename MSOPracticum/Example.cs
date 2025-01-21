@@ -3,7 +3,7 @@
 public class Example
 {   
     private static string example1 = "Move 5\r\nTurn left\r\nMove 2\r\nTurn right\r\nMove 10\r\nTurn right\r\nMove 2\r\nMove 4\r\nTurn left\r\nTurn left\r\nMove 1";
-    private static string example2 = "Move 2\r\nRepeat 5 times\r\n\tMove 2\r\n\tTurn left\r\n\tMove 1\r\nTurn right Move 1";
+    private static string example2 = "Move 2\r\nRepeat 5 times\r\n\tMove 2\r\n\tTurn left\r\n\tMove 1\r\nTurn right\r\nMove 1";
     private static string example3 = "Turn right\r\nMove 1\r\nRepeat 2 times\r\n\tMove 1\r\n\tTurn right\r\n\tRepeat 5 times\r\n\t\tMove 2\r\n\t\tTurn right\r\n\tMove 5\r\nTurn left\r\nRepeat 3 times\r\n\tMove 1";
 
     public static string GetExample()

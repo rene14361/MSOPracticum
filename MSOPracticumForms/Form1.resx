@@ -65,7 +65,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAHDEBAAJNU0Z0AUkBTAIBAQQB
-        AAGoAQABqAEAAaABAAGgAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAYABAgIAAUABAQIAAQEB
+        AAG4AQABuAEAAaABAAGgAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAYABAgIAAUABAQIAAQEB
         AAEIBgABIAEDFwABgAIAAYADAAKAAQABgAMAAYABAAGAAQACgAIAA8ABAAHAAdwBwAEAAfABygGmAQAB
         MwUAATMBAAEzAQABMwEAAjMCAAMWAQADHAEAAyIBAAMpAQADVQEAA00BAANCAQADOQEAAYABfAH/AQAC
         UAH/AQABkwEAAdYBAAH/AewBzAEAAcYB1gHvAQAB1gLnAQABkAGpAa0CAAH/ATMDAAFmAwABmQMAAcwC
@@ -1548,6 +1548,6 @@
 </value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>Welcome to our app! To start, please pick an example or enter a file path in the top left, or just start typing commands into the input section in the middle! Please follow the formatting rules for the commands, such as not leaving an extra space at the end of a line, as doing so will be counted as invalid input.</value>
+    <value>Welcome to our app! To start, please pick an example or enter a file path in the top left, or just start typing commands into the input section in the middle! Please follow the formatting rules for the commands, such as not leaving an extra space at the end of a line, as doing so will be counted as invalid input. You may use either spaces or line ends to seperate commands, but not both.</value>
   </data>
 </root>

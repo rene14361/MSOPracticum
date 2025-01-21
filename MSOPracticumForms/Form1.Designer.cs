@@ -383,6 +383,7 @@
             this.TxtOutput.Multiline = true;
             this.TxtOutput.Name = "TxtOutput";
             this.TxtOutput.ReadOnly = true;
+            this.TxtOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.TxtOutput.Size = new System.Drawing.Size(291, 115);
             this.TxtOutput.TabIndex = 29;
             // 
@@ -467,9 +468,9 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(704, 512);
-            this.label2.MaximumSize = new System.Drawing.Size(335, 100);
+            this.label2.MaximumSize = new System.Drawing.Size(335, 125);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(334, 75);
+            this.label2.Size = new System.Drawing.Size(334, 105);
             this.label2.TabIndex = 38;
             this.label2.Text = resources.GetString("label2.Text");
             // 

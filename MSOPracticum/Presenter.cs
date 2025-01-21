@@ -4,6 +4,7 @@
     {
         public IComponent UIComponent { get; set; }
         public IComponent ParserComponent { get; set; }
+        public IComponent CommandComponent { get; set; }
 
         public Presenter()
         {
@@ -14,7 +15,7 @@
         {
             if (sender == UIComponent)
             {
-                string[] splitMessage = message.Split(",");
+                string[] splitMessage = message.Split("|");
                 switch (splitMessage[0])
                 {
                     // create parser and execute it
@@ -42,14 +43,17 @@
                             _ => 0
                         };
                         if (n == 0) return;
-                        else sender.Receive("Input," + Example.ReturnExample(n));
+                        else sender.Receive("Input|" + Example.ReturnExample(n));
                         break;
-
                 }
             }
-            else if (sender == ParserComponent && message == "")
+            else if (sender == ParserComponent)
             {
-
+                UIComponent.Receive("Metrics|" + message);
+            }
+            else if (sender == CommandComponent)
+            {
+                UIComponent.Receive("Commands|" + message);
             }
         }
     }

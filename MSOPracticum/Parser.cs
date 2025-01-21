@@ -17,6 +17,7 @@ public class Parser : IComponent
     {
         AllocConsole(); // allocates a console window
         mediator = presenter;
+        mediator.ParserComponent = this;
     }
 
     // used to allocate a console window to this process
@@ -153,7 +154,9 @@ public class Parser : IComponent
         int repeatAmount = 0;
         foreach (string command in commandList) if (command.Contains("Repeat")) repeatAmount++;
 
-        Console.WriteLine($"These are the metrics of the commands:\nNumber of commands: {commandAmount}\nMaximum nesting level: {maxNesting}\nNumber of repeat commands: {repeatAmount}");
+        string metricOutput = $"Number of commands: {commandAmount}\r\nMaximum nesting level: {maxNesting}\r\nNumber of repeat commands: {repeatAmount}";
+        mediator.Notify(this, metricOutput);
+        Console.WriteLine(metricOutput);
     }
 
     private bool IsValid(string comp)
@@ -165,7 +168,7 @@ public class Parser : IComponent
         }
         if (comp.Split(" ")[0] == "Move" || comp.Split(" ")[0] == "Repeat")
         {
-            v = int.Parse(comp.Split(" ")[1]);
+            if (!int.TryParse(comp.Split(" ")[1], out v)) return false;
         }
         if (comp != null)
         {
