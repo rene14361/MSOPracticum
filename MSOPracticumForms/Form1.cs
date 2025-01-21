@@ -22,10 +22,12 @@ namespace MSOPracticumUI
             string[] splitMessage = message.Split("|");
             switch (splitMessage[0])
             {
+                // Puts text from example into the input field
                 case "Input":
                     TxtInput.Text = splitMessage[1];
                     break;
-
+                
+                // Puts output text into the output field and makes sure to start a new line if the output field already contains text
                 case "Metrics" or "Commands":
                     string output = "";
                     if (!string.IsNullOrEmpty(TxtOutput.Text)) output += "\r\n";
@@ -33,26 +35,36 @@ namespace MSOPracticumUI
                     TxtOutput.Text += output;
                     break;
 
+                // Loads text from a file into the input field and changes the dropdown button selection to "Custom"
                 case "Load":
                     TxtInput.Text = splitMessage[1];
                     BtnFile.Text = "Custom";
                     break;
 
+                // Updates the grid with the character's current and visited positions
                 case "Move":
                     int x, y = 0;
                     string[] numbers = splitMessage[1].Split(",");
                     int.TryParse(numbers[0], out x);
                     int.TryParse(numbers[1], out y);
 
-                    // Calculates true modulo value, we have to do this because we need the modulo value for our grid system and in C# using % gives remainder not modulo
-                    x = x % 5; if (x < 0) x += 5;
-                    y = y % 5; if (y < 0) y += 5;
-
                     // Colours the previous box white and makes the box the player is standing on have the player's current sprite
                     currentBox.Image = MSOPracticumForms.Properties.Resources.Sprite_0001;
                     currentBox = pictureBoxGrid[x, y];
                     currentBox.Image = currentImage;
 
+                    break;
+
+                // Changes the current character sprite based on the direction the character is facing
+                case "Turn":
+                    currentImage = splitMessage[1] switch
+                    {
+                        "north" => MSOPracticumForms.Properties.Resources.Sprite_0003N,
+                        "south" => MSOPracticumForms.Properties.Resources.Sprite_0003S,
+                        "west" => MSOPracticumForms.Properties.Resources.Sprite_0003W,
+                        _ => MSOPracticumForms.Properties.Resources.Sprite_0003E,
+                    };
+                    currentBox.Image = currentImage;
                     break;
             }
         }

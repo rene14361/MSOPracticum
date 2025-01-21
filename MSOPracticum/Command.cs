@@ -29,10 +29,13 @@
                 RunCommand(commandList[i], i, commandNestingLevels[i]);
                 trace = trace + commandList[i] + "; ";
             }
+
+            Point gridPosition = CalculateGridPosition(chara.position.X, chara.position.Y);
             string traceOutput = "Command trace:\r\n" + trace;
-            string endState = "End state " + (chara.position.X, chara.position.Y) + " facing " + chara.direction;
+            string endState = "End state is " + (chara.position.X, chara.position.Y) + " facing " + chara.direction;
+            string moduloPosition = "\r\nGrid position with modulo 5 is " + (gridPosition.X, gridPosition.Y);
             mediator.Notify(this, traceOutput);
-            mediator.Notify(this, endState);
+            mediator.Notify(this, endState + moduloPosition);
             Console.WriteLine(traceOutput);
             Console.WriteLine(endState);
         }
@@ -137,7 +140,9 @@
                 default:
                     chara.position.X += val; break;
             }
-            mediator.Notify(chara, "Move|" + chara.position.X.ToString() + "," + chara.position.Y.ToString());
+
+            Point gridPosition = CalculateGridPosition(chara.position.X, chara.position.Y);
+            mediator.Notify(chara, "Move|" + gridPosition.X.ToString() + "," + gridPosition.Y.ToString());
         }
 
         public void TurnLeft()
@@ -189,6 +194,14 @@
             {
                 return false;
             }
+        }
+
+        public Point CalculateGridPosition(int x, int y)
+        {
+            // Calculates modulo value, we have to do this because we need the modulo value for our grid system and in C# using % gives remainder not modulo
+            x = x % 5; if (x < 0) x += 5;
+            y = y % 5; if (y < 0) y += 5;
+            return new Point(x, y);
         }
     }
 }

@@ -480,10 +480,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(704, 444);
+            this.label2.Location = new System.Drawing.Point(704, 429);
             this.label2.MaximumSize = new System.Drawing.Size(335, 200);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(335, 180);
+            this.label2.Size = new System.Drawing.Size(334, 195);
             this.label2.TabIndex = 38;
             this.label2.Text = resources.GetString("label2.Text");
             // 
