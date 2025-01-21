@@ -1,21 +1,13 @@
-﻿using MSOPracticumPresenter;
-
-namespace MSOPracticum
+﻿namespace MSOPracticum
 {
     public class Presenter : IMediator
     {
         public IComponent UIComponent { get; set; }
         public IComponent ParserComponent { get; set; }
-        private Presenter()
+
+        public Presenter()
         {
 
-        }
-
-        private static readonly Presenter _presenter = new Presenter();
-
-        public static Presenter GetPresenter()
-        {
-            return _presenter;
         }
 
         public void Notify(IComponent sender, string message)
@@ -27,7 +19,7 @@ namespace MSOPracticum
                 {
                     // create parser and execute it
                     case "Parse":
-                        Parser parser = new Parser();
+                        Parser parser = new Parser(this);
                         int metrics = 0;
                         int.TryParse(splitMessage[1], out metrics);
                         int mode = splitMessage[2] switch
@@ -69,11 +61,6 @@ namespace MSOPracticum
 
     public interface IComponent
     {
-        public Presenter mediator { get; set; }
-
-        public void Receive(string message)
-        {
-
-        }
+        public void Receive(string message);
     }
 }

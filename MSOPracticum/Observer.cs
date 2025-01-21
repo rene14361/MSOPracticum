@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace MSOPracticum
+﻿namespace MSOPracticum
 {
     // Observer interface based on https://refactoring.guru/design-patterns/observer/csharp/example
     public interface IObserver

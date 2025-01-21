@@ -1,17 +1,15 @@
-﻿using System;
-using System.Windows.Forms;
-using MSOPracticum;
+﻿using MSOPracticum;
 
 namespace MSOPracticumUI
 {
     public partial class Form1 : Form, IComponent
     {
         public string state { get; set; }
-        public Presenter mediator { get; set; }
+        private Presenter mediator { get; set; }
 
-        public Form1()
+        public Form1(Presenter presenter)
         {
-            mediator = Presenter.GetPresenter();
+            mediator = presenter;
             mediator.UIComponent = this;
             InitializeComponent();
         }

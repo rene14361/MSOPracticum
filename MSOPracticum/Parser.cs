@@ -1,8 +1,4 @@
-﻿using MSOPracticumPresenter;
-using System;
-using System.ComponentModel.Design;
-using System.Net.Mail;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace MSOPracticum;
 
@@ -12,14 +8,15 @@ public class Parser : IComponent
     private bool detectedInvalid;
     private List<string> commandList = new List<string>();
     private List<int> commandNestingLevels = new List<int>();
+    private Presenter mediator { get; set; }
     public string state { get; set; }
-    public Presenter mediator { get; set; }
+    
 
 
-    public Parser()
+    public Parser(Presenter presenter)
     {
         AllocConsole(); // allocates a console window
-        mediator = Presenter.GetPresenter();
+        mediator = presenter;
     }
 
     // used to allocate a console window to this process
@@ -42,16 +39,16 @@ public class Parser : IComponent
                 break;
 
             case 2:
-                input = Example.GetExample().Replace(System.Environment.NewLine, " ");
+                input = Example.GetExample().Replace(Environment.NewLine, " ");
                 break;
 
             case 3:
-                input = state.Replace(System.Environment.NewLine, " ");
+                input = state.Replace(Environment.NewLine, " ");
                 break;
 
             case 4:
                 if (reader.TryRead(state)) input = reader.Read(state);
-                else { Console.WriteLine("Please adjust your file path and run the app again."); return; }
+                else { Console.WriteLine("Please adjust your file path and run the program again."); return; }
                 break;
 
             default:
@@ -64,7 +61,7 @@ public class Parser : IComponent
         ParseInput(input);
         if (detectedInvalid)
         {
-            Console.WriteLine("Please adjust your input and run the app again.");
+            Console.WriteLine("Please adjust your input and run the program again.");
             return;
         }
 
@@ -189,7 +186,7 @@ public class Parser : IComponent
 
     private void CallCommands(List<string> commandList, List<int> commandNestingLevels)
     {
-        Command commands = new Command(commandList, commandNestingLevels);
+        Command commands = new Command(mediator, commandList, commandNestingLevels);
         commands.ExecuteCommands();
     }
 }

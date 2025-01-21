@@ -57,7 +57,8 @@
 
         private static void Start(int mode, int metrics) 
         {
-            Parser parser = new Parser();
+            Presenter presenter = new Presenter();
+            Parser parser = new Parser(presenter);
             parser.ExecuteParser(mode, metrics);
         }
     }

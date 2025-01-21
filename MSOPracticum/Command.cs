@@ -1,16 +1,23 @@
 ﻿namespace MSOPracticum
 {
-    public class Command
+    public class Command : IComponent
     {
+        private Presenter mediator { get; set; }
         private List<string> commandList = new List<string>();
         private List<int> commandNestingLevels = new List<int>();
         public Character chara = Character.GetCharacter();
         private string trace = "";
 
-        public Command(List<string> commandList, List<int> commandNestingLevels)
+        public Command(Presenter presenter, List<string> commandList, List<int> commandNestingLevels)
         {
+            this.mediator = presenter;
             this.commandList = commandList;
             this.commandNestingLevels = commandNestingLevels;
+        }
+
+        public void Receive(string message)
+        {
+
         }
 
         public void ExecuteCommands()
