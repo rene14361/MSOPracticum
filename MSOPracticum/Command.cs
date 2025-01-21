@@ -55,6 +55,53 @@
         {
             int commandCount = 0;
             int currentCommandCount = 1;
+            bool WallAhead = false;
+            bool GridEdge = false;
+            if (cmd.Split(" ")[1] == "WallAhead")
+            {
+                while (WallAhead =! true)
+                {
+                    if (IsWall(NextBlock()))
+                    {
+                        WallAhead = true; break;
+                    }
+                    commandCount = 0;
+                    currentCommandCount = 1;
+                    foreach (int j in commandNestingLevels.Where(n => n > currentNestinglevel && commandList.Count > currentCommand + currentCommandCount))
+                    {
+                        RunCommand(commandList[currentCommand + currentCommandCount], currentCommand + currentCommandCount, currentNestinglevel);
+                        trace = trace + commandList[currentCommand + currentCommandCount] + ", ";
+                        commandCount++;
+                        currentCommandCount++;
+                    }
+                }
+            }
+            else if (cmd.Split(" ")[1] == "GridEdge")
+            {
+                while (GridEdge =! true)
+                {
+                    if (NextBlock().X < 0 || NextBlock().Y < 0 || NextBlock().X > 99 || NextBlock().Y > 99)
+                    {
+                        GridEdge = true; break;
+                    }
+                    commandCount = 0;
+                    currentCommandCount = 1;
+                    foreach (int j in commandNestingLevels.Where(n => n > currentNestinglevel && commandList.Count > currentCommand + currentCommandCount))
+                    {
+                        RunCommand(commandList[currentCommand + currentCommandCount], currentCommand + currentCommandCount, currentNestinglevel);
+                        trace = trace + commandList[currentCommand + currentCommandCount] + ", ";
+                        commandCount++;
+                        currentCommandCount++;
+                    }
+                }
+            }
+            commandList.RemoveRange(currentCommand + 1, commandCount);
+        }
+
+        public void RepeatUntil(string cmd, int currentCommand, int currentNestinglevel)
+        {
+            int commandCount = 0;
+            int currentCommandCount = 1;
             for (int i = 0; i < int.Parse(cmd.Split(" ")[1]); i++)
             {
                 commandCount = 0;
@@ -106,6 +153,33 @@
                 "north" => "east",
                 _ => "south",
             };
+        }
+
+        public Point NextBlock()
+        {
+            switch(chara.direction)
+            {
+                case "south":
+                    return new Point(chara.position.X, chara.position.Y + 1);
+                case "west":
+                    return new Point(chara.position.X - 1, chara.position.Y);
+                case "north":
+                    return new Point(chara.position.X, chara.position.Y - 1);
+                default:
+                    return new Point(chara.position.X + 1, chara.position.Y);
+            }
+        }
+
+        public bool IsWall(Point position)
+        {
+            if (position.X == position.Y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }
