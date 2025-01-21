@@ -11,13 +11,14 @@
         public Command(Presenter presenter, List<string> commandList, List<int> commandNestingLevels)
         {
             this.mediator = presenter;
+            mediator.CommandComponent = this;
             this.commandList = commandList;
             this.commandNestingLevels = commandNestingLevels;
         }
 
         public void Receive(string message)
         {
-
+            
         }
 
         public void ExecuteCommands()
@@ -27,8 +28,12 @@
                 RunCommand(commandList[i], i, commandNestingLevels[i]);
                 trace = trace + commandList[i] + "; ";
             }
-            Console.WriteLine(trace);
-            Console.WriteLine("End state " + (chara.position.X, chara.position.Y) + " facing " + chara.direction);
+            string traceOutput = "Command trace:\r\n" + trace;
+            string endState = "End state " + (chara.position.X, chara.position.Y) + " facing " + chara.direction;
+            mediator.Notify(this, traceOutput);
+            mediator.Notify(this, endState);
+            Console.WriteLine(traceOutput);
+            Console.WriteLine(endState);
         }
 
         private void RunCommand(string cmd, int currentCommand, int currentNestingLevel)
@@ -62,7 +67,7 @@
                 foreach (int j in commandNestingLevels.Where(n => n > currentNestinglevel && commandList.Count > currentCommand + currentCommandCount))
                 {
                     RunCommand(commandList[currentCommand + currentCommandCount], currentCommand + currentCommandCount, currentNestinglevel);
-                    trace = trace + commandList[i] + ", ";
+                    trace = trace + commandList[i] + "; ";
                     commandCount++;
                     currentCommandCount++;
                 }
