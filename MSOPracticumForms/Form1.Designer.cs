@@ -31,7 +31,6 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.BtnRun = new System.Windows.Forms.Button();
-            this.performanceCounter1 = new System.Diagnostics.PerformanceCounter();
             this.ImgLst = new System.Windows.Forms.ImageList(this.components);
             this.pictureBox21 = new System.Windows.Forms.PictureBox();
             this.pictureBox22 = new System.Windows.Forms.PictureBox();
@@ -66,7 +65,8 @@
             this.BtnMode3 = new System.Windows.Forms.RadioButton();
             this.TxtInput = new System.Windows.Forms.TextBox();
             this.BtnFile = new System.Windows.Forms.ComboBox();
-            ((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).BeginInit();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).BeginInit();
@@ -104,16 +104,6 @@
             this.BtnRun.Text = "Run";
             this.BtnRun.UseVisualStyleBackColor = true;
             this.BtnRun.Click += new System.EventHandler(this.BtnRun_Click);
-            // 
-            // performanceCounter1
-            // 
-            this.performanceCounter1.CategoryName = "Processor";
-            this.performanceCounter1.CounterName = "% Processor Time";
-            this.performanceCounter1.InstanceLifetime = System.Diagnostics.PerformanceCounterInstanceLifetime.Global;
-            this.performanceCounter1.InstanceName = "_Total";
-            this.performanceCounter1.MachineName = ".";
-            //this.performanceCounter1.RawValue = ((long)(254492265625));
-            this.performanceCounter1.ReadOnly = true;
             // 
             // ImgLst
             // 
@@ -399,13 +389,13 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.SystemColors.Control;
             this.label1.Location = new System.Drawing.Point(432, 453);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(38, 15);
+            this.label1.Size = new System.Drawing.Size(119, 15);
             this.label1.TabIndex = 32;
-            this.label1.Text = "Mode";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.label1.Text = "Output display mode";
             // 
             // BtnMode1
             // 
@@ -414,16 +404,16 @@
             this.BtnMode1.Location = new System.Drawing.Point(435, 478);
             this.BtnMode1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BtnMode1.Name = "BtnMode1";
-            this.BtnMode1.Size = new System.Drawing.Size(63, 19);
+            this.BtnMode1.Size = new System.Drawing.Size(87, 19);
             this.BtnMode1.TabIndex = 33;
             this.BtnMode1.TabStop = true;
-            this.BtnMode1.Text = "Default";
+            this.BtnMode1.Text = "Commands";
             this.BtnMode1.UseVisualStyleBackColor = true;
             // 
             // BtnMode2
             // 
             this.BtnMode2.AutoSize = true;
-            this.BtnMode2.Location = new System.Drawing.Point(511, 478);
+            this.BtnMode2.Location = new System.Drawing.Point(530, 478);
             this.BtnMode2.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BtnMode2.Name = "BtnMode2";
             this.BtnMode2.Size = new System.Drawing.Size(64, 19);
@@ -434,7 +424,7 @@
             // BtnMode3
             // 
             this.BtnMode3.AutoSize = true;
-            this.BtnMode3.Location = new System.Drawing.Point(587, 478);
+            this.BtnMode3.Location = new System.Drawing.Point(600, 478);
             this.BtnMode3.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.BtnMode3.Name = "BtnMode3";
             this.BtnMode3.Size = new System.Drawing.Size(50, 19);
@@ -473,11 +463,34 @@
             this.BtnFile.Text = "Custom";
             this.BtnFile.TextChanged += new System.EventHandler(this.BtnFile_TextChanged);
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(704, 512);
+            this.label2.MaximumSize = new System.Drawing.Size(335, 100);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(334, 75);
+            this.label2.TabIndex = 38;
+            this.label2.Text = resources.GetString("label2.Text");
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.BackColor = System.Drawing.SystemColors.Control;
+            this.label3.Location = new System.Drawing.Point(360, 81);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(35, 15);
+            this.label3.TabIndex = 39;
+            this.label3.Text = "Input";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1223, 638);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.BtnFile);
             this.Controls.Add(this.TxtInput);
             this.Controls.Add(this.BtnMode3);
@@ -516,7 +529,6 @@
             this.Name = "Form1";
             this.Text = "Learn To Program!";
             this.Load += new System.EventHandler(this.Form1_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.performanceCounter1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).EndInit();
@@ -550,7 +562,6 @@
         #endregion
 
         public System.Windows.Forms.Button BtnRun;
-        public System.Diagnostics.PerformanceCounter performanceCounter1;
         public System.Windows.Forms.ImageList ImgLst;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
@@ -585,6 +596,8 @@
         private System.Windows.Forms.RadioButton BtnMode3;
         private System.Windows.Forms.TextBox TxtInput;
         private System.Windows.Forms.ComboBox BtnFile;
+        private Label label2;
+        private Label label3;
     }
 }
 

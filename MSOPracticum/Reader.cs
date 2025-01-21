@@ -23,7 +23,7 @@ class Reader
     }
     
     // Tries to read the file at the provided path, returns a bool denoting whether the file was successfully read.
-    private bool TryRead(string path)
+    public bool TryRead(string path)
     {
         try
         {
@@ -33,7 +33,7 @@ class Reader
         catch (Exception e)
         {
             Console.Error.WriteLine(e.Message);
-            Console.WriteLine("Please try again.");
+            Console.WriteLine("Wrong file path, please try again.");
             return false;
         }
     }

@@ -35,7 +35,8 @@ namespace MSOPracticum
                             "Custom" or "Basic" or "Advanced" or "Expert" => 3,
                             _ => 4
                         };
-                        parser.state = splitMessage[3];
+                        if (mode == 3) parser.state = splitMessage[3];
+                        else parser.state = splitMessage[2];
                         parser.ExecuteParser(mode, metrics);
                         break;
 

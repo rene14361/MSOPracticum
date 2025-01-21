@@ -63,10 +63,5 @@ namespace MSOPracticumUI
             state = "Input," + BtnFile.Text.ToString();
             mediator.Notify(this, state);
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

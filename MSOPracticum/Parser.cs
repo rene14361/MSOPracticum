@@ -1,5 +1,6 @@
 ﻿using MSOPracticumPresenter;
 using System;
+using System.ComponentModel.Design;
 using System.Net.Mail;
 using System.Runtime.InteropServices;
 
@@ -41,16 +42,16 @@ public class Parser : IComponent
                 break;
 
             case 2:
-                input = Example.GetExample();
+                input = Example.GetExample().Replace(System.Environment.NewLine, " ");
                 break;
 
             case 3:
-                input = state;
+                input = state.Replace(System.Environment.NewLine, " ");
                 break;
 
             case 4:
-                // missing
-                input = "";
+                if (reader.TryRead(state)) input = reader.Read(state);
+                else { Console.WriteLine("Please adjust your file path and run the app again."); return; }
                 break;
 
             default:
