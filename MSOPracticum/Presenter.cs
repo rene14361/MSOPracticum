@@ -23,6 +23,7 @@
                         Parser parser = new Parser(this);
                         int metrics = 0;
                         int.TryParse(splitMessage[1], out metrics);
+                        // selects parsing mode 3 for text input and parsing mode 4 for custom file paths
                         int mode = splitMessage[2] switch
                         {
                             "Custom" or "Basic" or "Advanced" or "Expert" => 3,
@@ -45,11 +46,18 @@
                         if (n == 0) return;
                         else sender.Receive("Input|" + Example.ReturnExample(n));
                         break;
+
+                    // Loads the contents of a file for editing
+                    case "Load":
+                        Parser loader = new Parser(this);
+                        loader.Receive("Load|" + splitMessage[1]);
+                        break;
                 }
             }
             else if (sender == ParserComponent)
             {
-                UIComponent.Receive("Metrics|" + message);
+                UIComponent.Receive(message);
+
             }
             else if (sender == CommandComponent)
             {

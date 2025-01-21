@@ -29,6 +29,11 @@ namespace MSOPracticumUI
                     output += splitMessage[1];
                     TxtOutput.Text += output;
                     break;
+
+                case "Load":
+                    TxtInput.Text = splitMessage[1];
+                    BtnFile.Text = "Custom";
+                    break;
             }
         }
 
@@ -40,7 +45,7 @@ namespace MSOPracticumUI
         private void BtnRun_Click(object sender, EventArgs e)
         {
             TxtOutput.Text = String.Empty;
-            pictureBox1.Image = MSOPracticumUI.Properties.Resources.Sprite_0003;
+            pictureBox1.Image = Properties.Resources.Sprite_0003;
 
             // picks state depending on selected output mode
             if (BtnMode1.Checked) state = "Parse|1|";
@@ -54,9 +59,10 @@ namespace MSOPracticumUI
             mediator.Notify(this, state);
         }
 
-        private void PictureBox1_Click(object sender, EventArgs e)
+        private void BtnEdit_Click(object sender, EventArgs e)
         {
-
+            TxtOutput.Text = String.Empty;
+            mediator.Notify(this, "Load|" + BtnFile.Text);
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
@@ -69,5 +75,6 @@ namespace MSOPracticumUI
             state = "Input|" + BtnFile.Text.ToString();
             mediator.Notify(this, state);
         }
+
     }
 }

@@ -27,7 +27,13 @@ public class Parser : IComponent
 
     public void Receive(string message)
     {
-
+        string[] splitMessage = message.Split("|");
+        if (splitMessage[0] == "Load")
+        {
+            Console.WriteLine("Loading file at path: " + splitMessage[1]);
+            if (reader.TryRead(splitMessage[1])) mediator.Notify(this, "Load|" + reader.Read(splitMessage[1], "\r\n"));
+            else Console.WriteLine("Please adjust your file path.");
+        }
     }
 
     public void ExecuteParser(int mode, int metrics)
@@ -48,7 +54,7 @@ public class Parser : IComponent
                 break;
 
             case 4:
-                if (reader.TryRead(state)) input = reader.Read(state);
+                if (reader.TryRead(state)) input = reader.Read(state, " ");
                 else { Console.WriteLine("Please adjust your file path and run the program again."); return; }
                 break;
 
@@ -155,7 +161,7 @@ public class Parser : IComponent
         foreach (string command in commandList) if (command.Contains("Repeat")) repeatAmount++;
 
         string metricOutput = $"Number of commands: {commandAmount}\r\nMaximum nesting level: {maxNesting}\r\nNumber of repeat commands: {repeatAmount}";
-        mediator.Notify(this, metricOutput);
+        mediator.Notify(this, "Metrics|" + metricOutput);
         Console.WriteLine(metricOutput);
     }
 

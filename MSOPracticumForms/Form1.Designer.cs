@@ -67,6 +67,7 @@
             this.BtnFile = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.BtnEdit = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).BeginInit();
@@ -467,10 +468,10 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(704, 512);
-            this.label2.MaximumSize = new System.Drawing.Size(335, 125);
+            this.label2.Location = new System.Drawing.Point(704, 444);
+            this.label2.MaximumSize = new System.Drawing.Size(335, 200);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(334, 105);
+            this.label2.Size = new System.Drawing.Size(335, 180);
             this.label2.TabIndex = 38;
             this.label2.Text = resources.GetString("label2.Text");
             // 
@@ -478,18 +479,30 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.Control;
-            this.label3.Location = new System.Drawing.Point(360, 81);
+            this.label3.Location = new System.Drawing.Point(615, 81);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 15);
             this.label3.TabIndex = 39;
             this.label3.Text = "Input";
             // 
+            // BtnEdit
+            // 
+            this.BtnEdit.Location = new System.Drawing.Point(360, 63);
+            this.BtnEdit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.BtnEdit.Name = "BtnEdit";
+            this.BtnEdit.Size = new System.Drawing.Size(68, 30);
+            this.BtnEdit.TabIndex = 40;
+            this.BtnEdit.Text = "Load File";
+            this.BtnEdit.UseVisualStyleBackColor = true;
+            this.BtnEdit.Click += new System.EventHandler(this.BtnEdit_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1223, 638);
+            this.Controls.Add(this.BtnEdit);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.BtnFile);
@@ -599,6 +612,7 @@
         private System.Windows.Forms.ComboBox BtnFile;
         private Label label2;
         private Label label3;
+        public Button BtnEdit;
     }
 }
 
