@@ -1,20 +1,20 @@
 ﻿namespace MSOPracticum
 {
-    public class Character
+    public class Character : IComponent
     {
+        private Presenter mediator { get; set; }
         public Point position = new Point(0,0);
         public string direction = "east";
 
-        private Character()
+        public Character(Presenter presenter)
         {
-
+            this.mediator = presenter;
+            mediator.CharacterComponent = this;
         }
 
-        private static readonly Character _character = new Character();
-
-        public static Character GetCharacter()
+        public void Receive(string message)
         {
-            return _character;
+
         }
     }
 }

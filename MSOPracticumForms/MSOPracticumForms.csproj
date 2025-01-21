@@ -30,10 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\MSOPracticum\MSOPracticum.csproj" />
   </ItemGroup>
 

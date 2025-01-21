@@ -5,12 +5,13 @@
         private Presenter mediator { get; set; }
         private List<string> commandList = new List<string>();
         private List<int> commandNestingLevels = new List<int>();
-        public Character chara = Character.GetCharacter();
+        public Character chara { get; set; }
         private string trace = "";
 
         public Command(Presenter presenter, List<string> commandList, List<int> commandNestingLevels)
         {
             this.mediator = presenter;
+            this.chara = new Character(mediator);
             mediator.CommandComponent = this;
             this.commandList = commandList;
             this.commandNestingLevels = commandNestingLevels;
@@ -136,6 +137,7 @@
                 default:
                     chara.position.X += val; break;
             }
+            mediator.Notify(chara, "Move|" + chara.position.X.ToString() + "," + chara.position.Y.ToString());
         }
 
         public void TurnLeft()
@@ -147,6 +149,7 @@
                 "north" => "west",
                 _ => "north",
             };
+            mediator.Notify(chara, "Turn|" + chara.direction);
         }
 
         public void TurnRight()
@@ -158,6 +161,7 @@
                 "north" => "east",
                 _ => "south",
             };
+            mediator.Notify(chara, "Turn|" + chara.direction);
         }
 
         public Point NextBlock()

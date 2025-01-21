@@ -124,8 +124,17 @@
   <data name="Sprite_0002" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sprite_0002.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Sprite_0003" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sprite_0003.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="Sprite_0003E" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite_0003E.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Sprite_0003N" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite_0003N.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Sprite_0003S" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite_0003S.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Sprite_0003W" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Sprite_0003W.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="Sprite_0004" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Sprite_0004.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

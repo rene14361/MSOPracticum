@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MSOPracticumUI.Properties {
+namespace MSOPracticumForms.Properties {
     using System;
     
     
@@ -83,9 +83,39 @@ namespace MSOPracticumUI.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Sprite_0003 {
+        internal static System.Drawing.Bitmap Sprite_0003E {
             get {
-                object obj = ResourceManager.GetObject("Sprite_0003", resourceCulture);
+                object obj = ResourceManager.GetObject("Sprite_0003E", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Sprite_0003N {
+            get {
+                object obj = ResourceManager.GetObject("Sprite_0003N", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Sprite_0003S {
+            get {
+                object obj = ResourceManager.GetObject("Sprite_0003S", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Sprite_0003W {
+            get {
+                object obj = ResourceManager.GetObject("Sprite_0003W", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

@@ -5,6 +5,7 @@
         public IComponent UIComponent { get; set; }
         public IComponent ParserComponent { get; set; }
         public IComponent CommandComponent { get; set; }
+        public IComponent CharacterComponent { get; set; }
 
         public Presenter()
         {
@@ -18,23 +19,26 @@
                 string[] splitMessage = message.Split("|");
                 switch (splitMessage[0])
                 {
-                    // create parser and execute it
+                    // Create parser and execute it
                     case "Parse":
                         Parser parser = new Parser(this);
+
                         int metrics = 0;
                         int.TryParse(splitMessage[1], out metrics);
-                        // selects parsing mode 3 for text input and parsing mode 4 for custom file paths
+
+                        // Selects parsing mode 3 for text input and parsing mode 4 for custom file paths
                         int mode = splitMessage[2] switch
                         {
                             "Custom" or "Basic" or "Advanced" or "Expert" => 3,
                             _ => 4
                         };
+
                         if (mode == 3) parser.state = splitMessage[3];
                         else parser.state = splitMessage[2];
                         parser.ExecuteParser(mode, metrics);
                         break;
 
-                    // return example commands that corresponds to selection
+                    // Returns example commands that correspond to selection
                     case "Input":
                         int n = splitMessage[1] switch
                         {
@@ -62,6 +66,10 @@
             else if (sender == CommandComponent)
             {
                 UIComponent.Receive("Commands|" + message);
+            }
+            else if (sender == CharacterComponent)
+            {
+                UIComponent.Receive(message);
             }
         }
     }
