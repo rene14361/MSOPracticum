@@ -9,7 +9,8 @@
 
         public Presenter()
         {
-
+            Parser parser = new Parser(this);
+            ParserComponent = parser;
         }
 
         public void Notify(IComponent sender, string message)
@@ -20,19 +21,20 @@
                 switch (splitMessage[0])
                 {
                     // Create parser and execute it
-                    case "Parse":
+                    case "Parse" or "Attempt":
                         Parser parser = new Parser(this);
 
                         int metrics = 0;
                         int.TryParse(splitMessage[1], out metrics);
 
                         // Selects parsing mode 3 for text input and parsing mode 4 for custom file paths
-                        int mode = splitMessage[2] switch
+                        int mode;
+                        if (splitMessage[0] != "Attempt") mode = splitMessage[2] switch
                         {
                             "Custom" or "Basic" or "Advanced" or "Expert" => 3,
                             _ => 4
                         };
-
+                        else break; // mode = 3; // Disabled for now, not yet implemented
                         if (mode == 3) parser.state = splitMessage[3];
                         else parser.state = splitMessage[2];
                         parser.ExecuteParser(mode, metrics);
@@ -51,16 +53,21 @@
                         else sender.Receive("Input|" + Example.ReturnExample(n));
                         break;
 
-                    // Loads the contents of a file for editing
-                    case "Load":
-                        Parser loader = new Parser(this);
-                        loader.Receive("Load|" + splitMessage[1]);
+                    // Forwards the request to the parser
+                    default:
+                        ParserComponent.Receive(message);
                         break;
                 }
             }
             else if (sender == ParserComponent)
             {
-                UIComponent.Receive(message);
+                string[] splitMessage = message.Split("|");
+                switch (splitMessage[0]) 
+                {
+                    default:
+                        UIComponent.Receive(message);
+                        break;
+                }
 
             }
             else if (sender == CommandComponent)

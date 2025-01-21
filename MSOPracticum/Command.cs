@@ -7,6 +7,7 @@
         private List<int> commandNestingLevels = new List<int>();
         public Character chara { get; set; }
         private string trace = "";
+        private bool exerciseMode = false;
 
         public Command(Presenter presenter, List<string> commandList, List<int> commandNestingLevels)
         {
@@ -19,7 +20,7 @@
 
         public void Receive(string message)
         {
-            
+            if (message == "Exercise") exerciseMode = true;
         }
 
         public void ExecuteCommands()
@@ -142,7 +143,10 @@
             }
 
             Point gridPosition = CalculateGridPosition(chara.position.X, chara.position.Y);
-            mediator.Notify(chara, "Move|" + gridPosition.X.ToString() + "," + gridPosition.Y.ToString());
+            string message;
+            if (!exerciseMode) message = "Move|" + gridPosition.X.ToString() + "," + gridPosition.Y.ToString();
+            else message = "Move|" + chara.position.X.ToString() + "," + chara.position.Y.ToString();
+            mediator.Notify(chara, message);
         }
 
         public void TurnLeft()

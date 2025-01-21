@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace MSOPracticum;
 
@@ -6,34 +7,41 @@ public class Parser : IComponent
 {
     private Reader reader = new Reader();
     private bool detectedInvalid;
+    private bool[,] exerciseGrid = new bool[5, 5];
+    private Point exerciseGoal = new Point(0, 0);
     private List<string> commandList = new List<string>();
     private List<int> commandNestingLevels = new List<int>();
     private Presenter mediator { get; set; }
     public string state { get; set; }
     
-
-
     public Parser(Presenter presenter)
     {
-        AllocConsole(); // allocates a console window
+        AllocConsole(); // Allocates a console window
         mediator = presenter;
         mediator.ParserComponent = this;
     }
 
-    // used to allocate a console window to this process
-    [DllImport("kernel32.dll", SetLastError = true)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    static extern bool AllocConsole();
-
     public void Receive(string message)
     {
         string[] splitMessage = message.Split("|");
-        if (splitMessage[0] == "Load")
+
+        // Asks the reader to load the contents of a file and sends these contents back to the mediator
+        Console.WriteLine("Loading file at path: " + splitMessage[1]);
+        if (reader.TryRead(splitMessage[1]))
         {
-            Console.WriteLine("Loading file at path: " + splitMessage[1]);
-            if (reader.TryRead(splitMessage[1])) mediator.Notify(this, "Load|" + reader.Read(splitMessage[1], "\r\n"));
-            else Console.WriteLine("Please adjust your file path.");
+            string text;
+            text = reader.Read(splitMessage[1], "\r\n");
+
+            // if task is unrelated to exercise, notify mediator and return
+            if (splitMessage[0] != "Exercise") { mediator.Notify(this, splitMessage[0] + "|" + text); return; } 
+
+            // tries to parse exercise, returns if unsuccessful and notifies mediator if successful
+            if (!ParseExercise(text)) return;
+            string exercise = "";
+            foreach (bool value in exerciseGrid) exercise += value ? "True," : "False,";
+            mediator.Notify(this, $"Exercise|{exercise}|{exerciseGoal.X},{exerciseGoal.Y}");
         }
+        else Console.WriteLine("Please adjust your file path.");
     }
 
     public void ExecuteParser(int mode, int metrics)
@@ -153,6 +161,43 @@ public class Parser : IComponent
         Console.WriteLine("Done parsing.");
     }
 
+    private bool ParseExercise(string characters)
+    {
+        int x = 0; int y = 0;
+        characters = characters.Replace("\r\n", "");
+
+        // guard statement to get rid of invalid length grids
+        if (characters.Length != 25)
+        {
+            Console.WriteLine("Invalid input, exercise grid is not the allowed size of 25 (5x5).");
+            return false;
+        }
+
+        bool goalFound = false;
+        // validates each character and assigns the corresponding bool value in the grid
+        foreach (char c in characters)
+        {
+            if (c == '+') exerciseGrid[x, y] = false;
+            else if (c == 'o') exerciseGrid[x, y] = true;
+            else if (c == 'x')
+            {
+                goalFound = true;
+                exerciseGoal = new Point(x, y);
+                exerciseGrid[x, y] = true;
+            }
+            else
+            {
+                Console.WriteLine($"The character '{c}' is invalid, please adjust your exercise.");
+                return false;
+            }
+            if (y < 4) y++;
+            else { y = 0; x++; }
+        }
+        if (goalFound) return true;
+        Console.WriteLine("There was no goal included in the grid, please adjust your exercise.");
+        return false;
+    }
+
     private void CalculateMetrics(List<string> commandList, List<int> commandNestingLevels)
     {
         int commandAmount = commandList.Count;
@@ -198,4 +243,9 @@ public class Parser : IComponent
         Command commands = new Command(mediator, commandList, commandNestingLevels);
         commands.ExecuteCommands();
     }
+
+    // Used to allocate a console window to this process
+    [DllImport("kernel32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    static extern bool AllocConsole();
 }
