@@ -13,7 +13,8 @@ public class Parser : IComponent
     private List<int> commandNestingLevels = new List<int>();
     private Presenter mediator { get; set; }
     private string request { get; set; }
-    
+    public bool usingUI = true; // only exists to support running the old console program by setting it to false, we're not sure whether backwards compatibility is required, if it's not then pretend this doesn't exist
+
     public Parser(Presenter presenter)
     {
         AllocConsole(); // Allocates a console window
@@ -248,8 +249,9 @@ public class Parser : IComponent
         foreach (string command in commandList) if (command.Contains("Repeat")) repeatAmount++;
 
         string metricOutput = $"Number of commands: {commandAmount}\r\nMaximum nesting level: {maxNesting}\r\nNumber of repeat commands: {repeatAmount}";
-        mediator.Notify(this, "Metrics|" + metricOutput);
         Console.WriteLine(metricOutput);
+        if (!usingUI) return;
+        mediator.Notify(this, "Metrics|" + metricOutput);
     }
 
     private bool IsValid(string comp)
@@ -282,8 +284,9 @@ public class Parser : IComponent
 
     private void CallCommands(List<string> commandList, List<int> commandNestingLevels)
     {
-        Command commands = new Command(mediator, commandList, commandNestingLevels);
+        Command commands = new Command(mediator, commandList, commandNestingLevels, exerciseGrid, exerciseGoal);
         if (exerciseMode) mediator.Notify(this, "Mode");
+        if (!usingUI) commands.usingUI = false;
         commands.ExecuteCommands();
     }
 
