@@ -20,7 +20,7 @@
 
         public void Receive(string message)
         {
-            if (message == "Exercise") exerciseMode = true;
+            if (message == "Mode") exerciseMode = true;
         }
 
         public void ExecuteCommands()
@@ -145,7 +145,7 @@
             Point gridPosition = CalculateGridPosition(chara.position.X, chara.position.Y);
             string message;
             if (!exerciseMode) message = "Move|" + gridPosition.X.ToString() + "," + gridPosition.Y.ToString();
-            else message = "Move|" + chara.position.X.ToString() + "," + chara.position.Y.ToString();
+            else message = "Move|" + gridPosition.X.ToString() + "," + gridPosition.Y.ToString(); // "Move|" + chara.position.X.ToString() + "," + chara.position.Y.ToString();
             mediator.Notify(chara, message);
         }
 

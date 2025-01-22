@@ -17,65 +17,33 @@
         {
             if (sender == UIComponent)
             {
-                string[] splitMessage = message.Split("|");
-                switch (splitMessage[0])
-                {
-                    // Create parser and execute it
-                    case "Parse" or "Attempt":
-                        Parser parser = new Parser(this);
-
-                        int metrics = 0;
-                        int.TryParse(splitMessage[1], out metrics);
-
-                        // Selects parsing mode 3 for text input and parsing mode 4 for custom file paths
-                        int mode;
-                        if (splitMessage[0] != "Attempt") mode = splitMessage[2] switch
-                        {
-                            "Custom" or "Basic" or "Advanced" or "Expert" => 3,
-                            _ => 4
-                        };
-                        else break; // mode = 3; // Disabled for now, not yet implemented
-                        if (mode == 3) parser.state = splitMessage[3];
-                        else parser.state = splitMessage[2];
-                        parser.ExecuteParser(mode, metrics);
-                        break;
-
-                    // Returns example commands that correspond to selection
-                    case "Input":
-                        int n = splitMessage[1] switch
-                        {
-                            "Basic" => 1,
-                            "Advanced" => 2,
-                            "Expert" => 3,
-                            _ => 0
-                        };
-                        if (n == 0) return;
-                        else sender.Receive("Input|" + Example.ReturnExample(n));
-                        break;
-
-                    // Forwards the request to the parser
-                    default:
-                        ParserComponent.Receive(message);
-                        break;
-                }
+                // Forwards the request to the parser for "Parse", "Attempt", "Load" and "Exercise" and "Example"
+                ParserComponent.Receive(message);
             }
             else if (sender == ParserComponent)
             {
                 string[] splitMessage = message.Split("|");
                 switch (splitMessage[0]) 
                 {
+                    // Asks the command component to turn on exercise mode
+                    case "Mode":
+                        CommandComponent.Receive(message);
+                        break;
+                    
+                    // Forwards responses from the parser back to the UI.
                     default:
                         UIComponent.Receive(message);
                         break;
                 }
-
             }
             else if (sender == CommandComponent)
             {
+                // Forwards the request to the UI
                 UIComponent.Receive("Commands|" + message);
             }
             else if (sender == CharacterComponent)
             {
+                // Forwards the request to the UI
                 UIComponent.Receive(message);
             }
         }

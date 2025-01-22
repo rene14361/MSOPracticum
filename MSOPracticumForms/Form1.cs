@@ -1,14 +1,13 @@
 ﻿using MSOPracticum;
-using System.Runtime.CompilerServices;
 
 namespace MSOPracticumUI
 {
     public partial class Form1 : Form, IComponent
     {
-        private bool exerciseMode = false;
         private bool exerciseReady = false; // readiness to execute the exercise, true when exercise grid was loaded correctly
+        private string[] exerciseValues { get; set; } // used to reset the grid to the exercise's grid
+        MSOPracticum.Point exerciseGoal { get; set; } // used to reset the grid to the exercise's grid
         private PictureBox[,] pictureBoxGrid = new PictureBox[5, 5];
-        private bool[,] exerciseGrid = new bool[5, 5];
         private PictureBox currentBox { get; set; }
         private Image currentImage { get; set; }
         private Presenter mediator { get; set; }
@@ -26,7 +25,7 @@ namespace MSOPracticumUI
             switch (splitMessage[0])
             {
                 // Puts text from example into the input field
-                case "Input":
+                case "Example":
                     TxtInput.Text = splitMessage[1];
                     break;
                 
@@ -72,24 +71,15 @@ namespace MSOPracticumUI
 
                 // Loads the contents of an exercise into the grid
                 case "Exercise":
-                    string[] boolValues = splitMessage[1].Split(",");
+                    exerciseValues = splitMessage[1].Split(",");
                     string[] goalValues = splitMessage[2].Split(",");
 
-                    MSOPracticum.Point goal = new MSOPracticum.Point(int.Parse(goalValues[0]), int.Parse(goalValues[1]));
+                    exerciseGoal = new MSOPracticum.Point(int.Parse(goalValues[0]), int.Parse(goalValues[1]));
 
-                    int i = 0; int j = 0;
+                    MakeExerciseGrid();
 
-                    // Colours "True" boxes to white, keeps others red.
-                    foreach (string value in boolValues)
-                    {
-                        if (value == "True") pictureBoxGrid[i, j].Image = MSOPracticumForms.Properties.Resources.Sprite_0001;
-                        if (i == 4 && j == 4) break;
-                        if (i < 4) i++;
-                        else { i = 0; j++; }
-                    }
-
-                    pictureBoxGrid[goal.X, goal.Y].Image = MSOPracticumForms.Properties.Resources.Sprite_0004;
-
+                    // Changes the dropdown button selection to "Custom" and indicates that the program is ready to run an exercise
+                    BtnFile.Text = "Custom";
                     exerciseReady = true;
                     break;
             }
@@ -164,7 +154,7 @@ namespace MSOPracticumUI
 
         private void BtnFile_TextChanged(object sender, EventArgs e)
         {
-            string message = "Input|" + BtnFile.Text.ToString();
+            string message = "Example|" + BtnFile.Text.ToString();
             mediator.Notify(this, message);
         }
 
@@ -178,8 +168,27 @@ namespace MSOPracticumUI
 
         private void Reset()
         {
-            // Resets all sprites unless ready for exercise
+            // Resets all sprites unless ready for exercise, in which case resets to the exercise grid
             if (!exerciseReady) foreach (PictureBox pictureBox in pictureBoxGrid) pictureBox.Image = MSOPracticumForms.Properties.Resources.Sprite_0002;
+            else MakeExerciseGrid();
+        }
+
+        private void MakeExerciseGrid()
+        {
+            int i = 0; int j = 0;
+
+            // Colours "True" boxes to white, makes others red.
+            foreach (string value in exerciseValues)
+            {
+                if (value == "True") pictureBoxGrid[i, j].Image = MSOPracticumForms.Properties.Resources.Sprite_0001;
+                else pictureBoxGrid[i, j].Image = MSOPracticumForms.Properties.Resources.Sprite_0002;
+
+                if (i == 4 && j == 4) break;
+                if (i < 4) i++;
+                else { i = 0; j++; }
+            }
+
+            pictureBoxGrid[exerciseGoal.X, exerciseGoal.Y].Image = MSOPracticumForms.Properties.Resources.Sprite_0004;
         }
     }
 }
