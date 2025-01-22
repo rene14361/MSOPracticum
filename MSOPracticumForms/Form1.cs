@@ -16,7 +16,7 @@ namespace MSOPracticumUI
 
         private void BtnRun_Click(object sender, EventArgs e)
         {
-            pictureBox1.Image = MSOPracticumUI.Properties.Resources.Sprite_0003;
+            pictureBox1.ImageLocation = "MSOPracticumForms\\Resources\\Sprite_0001.png";
         }
 
         private void PictureBox1_Click(object sender, EventArgs e)
