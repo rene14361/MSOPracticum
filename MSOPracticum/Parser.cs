@@ -1,15 +1,90 @@
-﻿namespace MSOPracticum;
+﻿using System.Runtime.InteropServices;
 
-public class Parser
+namespace MSOPracticum;
+
+public class Parser : IComponent
 {
     private Reader reader = new Reader();
     private bool detectedInvalid;
+    private bool exerciseMode = false;
+    private bool[,] exerciseGrid = new bool[5, 5];
+    private Point exerciseGoal = new Point(0, 0);
     private List<string> commandList = new List<string>();
     private List<int> commandNestingLevels = new List<int>();
+    private Presenter mediator { get; set; }
+    private string request { get; set; }
+    public bool usingUI = true; // only exists to support running the old console program by setting it to false, we're not sure whether backwards compatibility is required, if it's not then pretend this doesn't exist
 
-    public Parser()
+    public Parser(Presenter presenter)
     {
+        AllocConsole(); // Allocates a console window
+        mediator = presenter;
+        mediator.ParserComponent = this;
+    }
 
+    public void Receive(string message)
+    {
+        string[] splitMessage = message.Split("|");
+
+        switch (splitMessage[0])
+        {
+            case "Load" or "Exercise":
+                // Asks the reader to load the contents of a file and sends these contents back to the mediator
+                Console.WriteLine("Loading file at path: " + splitMessage[1]);
+                if (reader.TryRead(splitMessage[1]))
+                {
+                    string text;
+                    text = reader.Read(splitMessage[1], "\r\n");
+
+                    // if task is unrelated to exercise, notify mediator and return
+                    if (splitMessage[0] != "Exercise") { mediator.Notify(this, splitMessage[0] + "|" + text); return; }
+
+                    // tries to parse exercise, returns if unsuccessful and notifies mediator if successful
+                    if (!ParseExercise(text)) return;
+                    string exercise = "";
+                    foreach (bool value in exerciseGrid) exercise += value ? "True," : "False,";
+                    mediator.Notify(this, $"Exercise|{exercise}|{exerciseGoal.X},{exerciseGoal.Y}");
+                }
+                else Console.WriteLine("Please adjust your file path.");
+                break;
+
+            case "Parse" or "Attempt":
+                int metrics;
+                int.TryParse(splitMessage[1], out metrics);
+
+                // Selects parsing mode 3 for text input and parsing mode 4 for custom file paths
+                int mode = splitMessage[2] switch
+                {
+                    "Custom" or "Basic" or "Advanced" or "Expert" => 3,
+                    _ => 4
+                };
+                
+                if (mode == 3) request = splitMessage[3];
+                else request = splitMessage[2];
+
+                // Resets the command list, command nesting levels and exercise mode flag so that if this is not the first time the program is run it doesn't stack the new input with previous ones
+                commandList = new List<string>();
+                commandNestingLevels = new List<int>();
+                exerciseMode = false;
+
+                if (splitMessage[0] == "Attempt") exerciseMode = true;
+
+                ExecuteParser(mode, metrics);
+                break;
+
+            // Returns example commands that correspond to selection
+            case "Example":
+                int n = splitMessage[1] switch
+                {
+                    "Basic" => 1,
+                    "Advanced" => 2,
+                    "Expert" => 3,
+                    _ => 0
+                };
+                if (n == 0) return;
+                else mediator.Notify(this, $"{splitMessage[0]}|{Example.ReturnExample(n)}" );
+                break;
+        }
     }
 
     public void ExecuteParser(int mode, int metrics)
@@ -22,7 +97,16 @@ public class Parser
                 break;
 
             case 2:
-                input = Example.GetExample();
+                input = Example.GetExample().Replace(Environment.NewLine, " ");
+                break;
+
+            case 3:
+                input = request.Replace(Environment.NewLine, " ");
+                break;
+
+            case 4:
+                if (reader.TryRead(request)) input = reader.Read(request, " ");
+                else { Console.WriteLine("Please adjust your file path and run the program again."); return; }
                 break;
 
             default:
@@ -35,7 +119,7 @@ public class Parser
         ParseInput(input);
         if (detectedInvalid)
         {
-            Console.WriteLine("Please adjust your input and run the app again.");
+            Console.WriteLine("Please adjust your input and run the program again.");
             return;
         }
 
@@ -120,6 +204,43 @@ public class Parser
         Console.WriteLine("Done parsing.");
     }
 
+    private bool ParseExercise(string characters)
+    {
+        int x = 0; int y = 0;
+        characters = characters.Replace("\r\n", "");
+
+        // guard statement to get rid of invalid length grids
+        if (characters.Length != 25)
+        {
+            Console.WriteLine("Invalid input, exercise grid is not the allowed size of 25 (5x5).");
+            return false;
+        }
+
+        bool goalFound = false;
+        // validates each character and assigns the corresponding bool value in the grid
+        foreach (char c in characters)
+        {
+            if (c == '+') exerciseGrid[x, y] = false;
+            else if (c == 'o') exerciseGrid[x, y] = true;
+            else if (c == 'x')
+            {
+                goalFound = true;
+                exerciseGoal = new Point(x, y);
+                exerciseGrid[x, y] = true;
+            }
+            else
+            {
+                Console.WriteLine($"The character '{c}' is invalid, please adjust your exercise.");
+                return false;
+            }
+            if (y < 4) y++;
+            else { y = 0; x++; }
+        }
+        if (goalFound) return true;
+        Console.WriteLine("There was no goal included in the grid, please adjust your exercise.");
+        return false;
+    }
+
     private void CalculateMetrics(List<string> commandList, List<int> commandNestingLevels)
     {
         int commandAmount = commandList.Count;
@@ -127,7 +248,10 @@ public class Parser
         int repeatAmount = 0;
         foreach (string command in commandList) if (command.Contains("Repeat")) repeatAmount++;
 
-        Console.WriteLine($"These are the metrics of the commands:\nNumber of commands: \u001b[1m{commandAmount}\u001b[0m\nMaximum nesting level: \u001b[1m{maxNesting}\u001b[0m\nNumber of repeat commands: \u001b[1m{repeatAmount}\u001b[0m");
+        string metricOutput = $"Number of commands: {commandAmount}\r\nMaximum nesting level: {maxNesting}\r\nNumber of repeat commands: {repeatAmount}";
+        Console.WriteLine(metricOutput);
+        if (!usingUI) return;
+        mediator.Notify(this, "Metrics|" + metricOutput);
     }
 
     private bool IsValid(string comp)
@@ -139,7 +263,7 @@ public class Parser
         }
         if (comp.Split(" ")[0] == "Move" || comp.Split(" ")[0] == "Repeat")
         {
-            v = int.Parse(comp.Split(" ")[1]);
+            if (!int.TryParse(comp.Split(" ")[1], out v)) return false;
         }
         if (comp != null)
         {
@@ -160,7 +284,14 @@ public class Parser
 
     private void CallCommands(List<string> commandList, List<int> commandNestingLevels)
     {
-        Command commands = new Command(commandList, commandNestingLevels);
+        Command commands = new Command(mediator, commandList, commandNestingLevels, exerciseGrid, exerciseGoal);
+        if (exerciseMode) mediator.Notify(this, "Mode");
+        if (!usingUI) commands.usingUI = false;
         commands.ExecuteCommands();
     }
+
+    // Used to allocate a console window to this process
+    [DllImport("kernel32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    static extern bool AllocConsole();
 }

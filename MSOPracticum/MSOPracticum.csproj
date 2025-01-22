@@ -10,9 +10,4 @@
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\MSOPracticumPresenter\MSOPracticumPresenter.csproj" />
-  </ItemGroup>
-
 </Project>

@@ -23,23 +23,23 @@ class Reader
     }
     
     // Tries to read the file at the provided path, returns a bool denoting whether the file was successfully read.
-    private bool TryRead(string path)
+    public bool TryRead(string path)
     {
         try
         {
-            fileContents = Read(path);
+            fileContents = Read(path, " ");
             return true;
         }
         catch (Exception e)
         {
             Console.Error.WriteLine(e.Message);
-            Console.WriteLine("Please try again.");
+            Console.WriteLine("Wrong file path, please try again.");
             return false;
         }
     }
 
     // Reads the text file at the place denoted by the file path and converts it into a single string. Automatically adds spaces for each new line, except at the beginning.
-    public string Read(string path)
+    public string Read(string path, string filler)
     {
         StreamReader streamReader = new StreamReader(path);
         string line, text = String.Empty;
@@ -47,8 +47,8 @@ class Reader
         {
             // checks whether text string is empty to avoid adding a space to the beginning of the string
             if (text == String.Empty) { text = line; }
-            // if it's not empty add the space and the next line
-            else { text += " " + line; }
+            // if it's not empty add the filler string and the next line
+            else { text += filler + line; }
         }
         return text;
     }

@@ -5,7 +5,7 @@
         static void Main()
         {
             Program program = new Program();
-            Console.WriteLine("Welcome to our Programming Learning App!");
+            Console.WriteLine("Welcome to our Programming Learning App! This is the outdated console program, please launch MSOPracticumForms instead!");
             int inputMode = ChooseInputMode();
             int metricsMode = ChooseMetricsMode();
             Start(inputMode, metricsMode);
@@ -57,7 +57,9 @@
 
         private static void Start(int mode, int metrics) 
         {
-            Parser parser = new Parser();
+            Presenter presenter = new Presenter();
+            Parser parser = new Parser(presenter);
+            parser.usingUI = false;
             parser.ExecuteParser(mode, metrics);
         }
     }

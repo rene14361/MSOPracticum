@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSOPracticum", "MSOPracticu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSOtest", "MSOtest\MSOtest.csproj", "{ABEAA921-57BE-45DA-BC5B-E47D593E53D1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSOPracticumPresenter", "MSOPracticumPresenter\MSOPracticumPresenter.csproj", "{E97AAD0D-2375-42CB-8245-E6EE21434F13}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MSOPracticumForms", "MSOPracticumForms\MSOPracticumForms.csproj", "{6D7B2253-6A38-449D-9D4B-759CA36275C1}"
 EndProject
 Global
@@ -25,10 +23,6 @@ Global
 		{ABEAA921-57BE-45DA-BC5B-E47D593E53D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABEAA921-57BE-45DA-BC5B-E47D593E53D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABEAA921-57BE-45DA-BC5B-E47D593E53D1}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E97AAD0D-2375-42CB-8245-E6EE21434F13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E97AAD0D-2375-42CB-8245-E6EE21434F13}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E97AAD0D-2375-42CB-8245-E6EE21434F13}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E97AAD0D-2375-42CB-8245-E6EE21434F13}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6D7B2253-6A38-449D-9D4B-759CA36275C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6D7B2253-6A38-449D-9D4B-759CA36275C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D7B2253-6A38-449D-9D4B-759CA36275C1}.Release|Any CPU.ActiveCfg = Release|Any CPU

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using MSOPracticum;
 
 namespace MSOPracticumUI
 {
@@ -16,7 +12,9 @@ namespace MSOPracticumUI
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Presenter presenter = new Presenter();
+            Application.Run(new Form1(presenter));
+            
         }
     }
 }
