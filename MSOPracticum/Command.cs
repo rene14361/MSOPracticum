@@ -11,7 +11,7 @@
         private bool exerciseMode = false;
         private bool[,] exerciseGrid = new bool[5, 5];
         private Point exerciseGoal = new Point(0, 0);
-        public bool usingUI = true; // only exists to support running the old console program by setting it to false, we're not sure whether backwards compatibility is required, if it's not then pretend this doesn't exist
+        public bool usingUI = false; // only exists to support running the old console program by setting it to false, we're not sure whether backwards compatibility is required, if it's not then pretend this doesn't exist
 
         public Command(Presenter presenter, List<string> commandList, List<int> commandNestingLevels, bool[,] exerciseGrid, Point exerciseGoal)
         {
@@ -87,6 +87,10 @@
             {
                 Repeat(cmd, currentCommand, currentNestingLevel); return;
             }
+            else if (cmd.Split(" ")[0] == "RepeatUntil")
+            {
+                RepeatUntil(cmd, currentCommand, currentNestingLevel); return;
+            }
             else if (cmd.Split(" ")[0] == "Move")
             {
                 Move(cmd); return;
@@ -101,7 +105,7 @@
             }
         }
 
-        public void Repeat(string cmd, int currentCommand, int currentNestinglevel)
+        public void RepeatUntil(string cmd, int currentCommand, int currentNestinglevel)
         {
             int commandCount = 0;
             int currentCommandCount = 1;
@@ -109,7 +113,7 @@
             bool GridEdge = false;
             if (cmd.Split(" ")[1] == "WallAhead")
             {
-                while (WallAhead =! true)
+                while (WallAhead != true)
                 {
                     if (IsWall(NextBlock()))
                     {
@@ -117,40 +121,34 @@
                     }
                     commandCount = 0;
                     currentCommandCount = 1;
-                    foreach (int j in commandNestingLevels.Where(n => n > currentNestinglevel && commandList.Count > currentCommand + currentCommandCount))
-                    {
-                        RunCommand(commandList[currentCommand + currentCommandCount], currentCommand + currentCommandCount, currentNestinglevel);
-                        if (caughtException) return;
-                        trace = trace + commandList[currentCommand + currentCommandCount] + ", ";
-                        commandCount++;
-                        currentCommandCount++;
-                    }
+                    RunCommand(commandList[currentCommand + currentCommandCount], currentCommand + currentCommandCount, currentNestinglevel);
+                    if (caughtException) return;
+                    trace = trace + commandList[currentCommand + currentCommandCount] + ", ";
+                    commandCount++;
+                    currentCommandCount++;
                 }
             }
             else if (cmd.Split(" ")[1] == "GridEdge")
             {
-                while (GridEdge =! true)
+                while (GridEdge != true)
                 {
-                    if (NextBlock().X < 0 || NextBlock().Y < 0 || NextBlock().X > 99 || NextBlock().Y > 99)
+                    if (NextBlock().X < 0 || NextBlock().Y < 0 || NextBlock().X > 5 || NextBlock().Y > 5)
                     {
                         GridEdge = true; break;
                     }
                     commandCount = 0;
                     currentCommandCount = 1;
-                    foreach (int j in commandNestingLevels.Where(n => n > currentNestinglevel && commandList.Count > currentCommand + currentCommandCount))
-                    {
-                        RunCommand(commandList[currentCommand + currentCommandCount], currentCommand + currentCommandCount, currentNestinglevel);
-                        if (caughtException) return;
-                        trace = trace + commandList[currentCommand + currentCommandCount] + ", ";
-                        commandCount++;
-                        currentCommandCount++;
-                    }
+                    RunCommand(commandList[currentCommand + currentCommandCount], currentCommand + currentCommandCount, currentNestinglevel);
+                    if (caughtException) return;
+                    trace = trace + commandList[currentCommand + currentCommandCount] + ", ";
+                    commandCount++;
+                    currentCommandCount++;
                 }
             }
             commandList.RemoveRange(currentCommand + 1, commandCount);
         }
 
-        public void RepeatUntil(string cmd, int currentCommand, int currentNestinglevel)
+        public void Repeat(string cmd, int currentCommand, int currentNestinglevel)
         {
             int commandCount = 0;
             int currentCommandCount = 1;
