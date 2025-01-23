@@ -13,7 +13,7 @@ namespace MSOPracticumUI
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Presenter presenter = new Presenter();
-            Application.Run(new Form1(presenter));
+            Application.Run(new ApplicationForm(presenter));
             
         }
     }

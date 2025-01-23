@@ -1,6 +1,6 @@
 ﻿namespace MSOPracticumUI
 {
-    partial class Form1
+    partial class ApplicationForm
     {
         /// <summary>
         /// Required designer variable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ApplicationForm));
             this.BtnRun = new System.Windows.Forms.Button();
             this.ImgLst = new System.Windows.Forms.ImageList(this.components);
             this.pictureBox21 = new System.Windows.Forms.PictureBox();
@@ -462,7 +462,6 @@
             this.TxtInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.TxtInput.Size = new System.Drawing.Size(291, 316);
             this.TxtInput.TabIndex = 36;
-            this.TxtInput.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // BtnFile
             // 
@@ -739,7 +738,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.Name = "Form1";
             this.Text = "Learn To Program!";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.ApplicationForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox22)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox23)).EndInit();

@@ -22,6 +22,7 @@ namespace MSOtest
             commands.Add("Move 2");
             nesting.Add(0);
             Command command = new Command(presenter, commands, nesting, exerciseGrid, exerciseGoal);
+            command.usingUI = false;
             command.ExecuteCommands();
             Point correctPosition = new Point(2, 0); // from (0,0) move east to (2,0)
             Assert.AreEqual(correctPosition.X, command.chara.position.X);
@@ -35,11 +36,12 @@ namespace MSOtest
             List<int> nesting = new List<int>();
             bool[,] exerciseGrid = new bool[5, 5];
             Point exerciseGoal = new Point(0, 0);
-            commands.Add("Move 2");
+            commands.Add("Move 3");
             nesting.Add(0);
             Command command = new Command(presenter, commands, nesting, exerciseGrid, exerciseGoal);
+            command.usingUI = false;
             command.ExecuteCommands();
-            Point correctPosition = new Point(2, 0); // from (2,0) move east to (4,0)
+            Point correctPosition = new Point(3, 0); // from (0,0) move east to (3,0)
             Assert.AreEqual(correctPosition.X, command.chara.position.X);
         }
 
@@ -54,6 +56,7 @@ namespace MSOtest
             commands.Add("Turn left");
             nesting.Add(0);
             Command command = new Command(presenter, commands, nesting, exerciseGrid, exerciseGoal);
+            command.usingUI = false;
             command.TurnLeft();
             string correctDirection = "north"; // from "east" to "north"
             Assert.AreEqual(correctDirection, command.chara.direction);
@@ -72,7 +75,8 @@ namespace MSOtest
             nesting.Add(0);
             nesting.Add(1);
             Command command = new Command(presenter, commands, nesting, exerciseGrid, exerciseGoal);
-            Point correctPosition = new Point(4, 0); // from (0,0) move eas to (4, 0)
+            command.usingUI = false;
+            Point correctPosition = new Point(4, 0); // from (0,0) move east to (4, 0)
             command.ExecuteCommands();
             Assert.AreEqual(correctPosition.X, command.chara.position.X);
         }
@@ -88,6 +92,7 @@ namespace MSOtest
             commands.Add("Turn right");
             nesting.Add(0);
             Command command = new Command(presenter, commands, nesting, exerciseGrid, exerciseGoal);
+            command.usingUI = false;
             command.ExecuteCommands();
             string correctDirection = "south"; // from "east" to "south"
             Assert.AreEqual(correctDirection, command.chara.direction);
@@ -106,7 +111,8 @@ namespace MSOtest
             nesting.Add(0);
             nesting.Add(1);
             Command command = new Command(presenter, commands, nesting, exerciseGrid, exerciseGoal);
-            Point correctPosition = new Point(5, 0); // from (4,0) move south until (4,5) which is the grid's edge
+            command.usingUI = false;
+            Point correctPosition = new Point(4, 0); // from (0,0) move east until (4,0) which is the grid's edge
             command.ExecuteCommands();
             Assert.AreEqual(correctPosition.X, command.chara.position.X);
         }
@@ -128,7 +134,8 @@ namespace MSOtest
             nesting.Add(0);
             nesting.Add(1);
             Command command = new Command(presenter, commands, nesting, exerciseGrid, exerciseGoal);
-            Point correctPosition = new Point(1, 1); // from (4,0) move south until (4,3) because (4,4) is a wall
+            command.usingUI = false;
+            Point correctPosition = new Point(1, 3); // from (0,0) move to (1,0), then move south until (1,3) because (1,4) is considered a wall
             command.ExecuteCommands();
             Assert.AreEqual(correctPosition.Y, command.chara.position.Y);
         }

@@ -11,7 +11,7 @@
         private bool exerciseMode = false;
         private bool[,] exerciseGrid = new bool[5, 5];
         private Point exerciseGoal = new Point(0, 0);
-        public bool usingUI = false; // only exists to support running the old console program by setting it to false, we're not sure whether backwards compatibility is required, if it's not then pretend this doesn't exist
+        public bool usingUI = true; // only exists to support running the old console program by setting it to false, we're not sure whether backwards compatibility is required, if it's not then pretend this doesn't exist
 
         public Command(Presenter presenter, List<string> commandList, List<int> commandNestingLevels, bool[,] exerciseGrid, Point exerciseGoal)
         {
@@ -132,7 +132,7 @@
             {
                 while (GridEdge != true)
                 {
-                    if (NextBlock().X < 0 || NextBlock().Y < 0 || NextBlock().X > 5 || NextBlock().Y > 5)
+                    if (NextBlock().X < 0 || NextBlock().Y < 0 || NextBlock().X > 4 || NextBlock().Y > 4)
                     {
                         GridEdge = true; break;
                     }
@@ -160,7 +160,7 @@
                 {
                     RunCommand(commandList[currentCommand + currentCommandCount], currentCommand + currentCommandCount, currentNestinglevel);
                     if (caughtException) return;
-                    trace = trace + commandList[i] + "; ";
+                    trace = trace + commandList[currentCommand + currentCommandCount] + "; ";
                     commandCount++;
                     currentCommandCount++;
                 }
@@ -237,12 +237,18 @@
 
         public bool IsWall(Point position)
         {
-            if (position.X == position.Y)
+            // if not in exercise mode, to differentiate this from GridEdge it considers the cells next to the edge to be walls
+            if (!exerciseMode)
             {
-                return true;
+                Point gridPos = CalculateGridPosition(position.X, position.Y);
+                if ((gridPos.X == 0 || gridPos.Y == 0) || (gridPos.X == 4 || gridPos.Y == 4)) return true;
+                else return false;
             }
+            // else in exercise mode it considers the edge of the grid AND the red cells to be walls
             else
             {
+                if ((position.X < 0 || position.Y < 0 || position.X > 4 || position.Y > 4)) return true;
+                if (!exerciseGrid[position.Y, position.X]) return true;
                 return false;
             }
         }

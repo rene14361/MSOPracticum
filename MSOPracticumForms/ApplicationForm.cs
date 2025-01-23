@@ -3,9 +3,9 @@ using System.Windows.Forms;
 
 namespace MSOPracticumUI
 {
-    public partial class Form1 : Form, IComponent
+    public partial class ApplicationForm : Form, IComponent
     {
-        private bool drawPath = false;
+        private bool drawPathReady = false;
         private bool exerciseReady = false; // readiness to execute the exercise, true when exercise grid was loaded correctly
         private string[] exerciseValues { get; set; } // used to reset the grid to the exercise's grid
         MSOPracticum.Point exerciseGoal { get; set; } // used to reset the grid to the exercise's grid
@@ -15,7 +15,7 @@ namespace MSOPracticumUI
         private Image currentImage { get; set; }
         private Presenter mediator { get; set; }
 
-        public Form1(Presenter presenter)
+        public ApplicationForm(Presenter presenter)
         {
             mediator = presenter;
             mediator.UIComponent = this;
@@ -69,7 +69,7 @@ namespace MSOPracticumUI
                     currentBox.Image = currentImage;
 
                     AddToPath();
-                    drawPath = true;
+                    drawPathReady = true;
 
                     break;
 
@@ -101,7 +101,7 @@ namespace MSOPracticumUI
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void ApplicationForm_Load(object sender, EventArgs e)
         {
             pictureBoxGrid[0, 0] = pictureBox1;
             pictureBoxGrid[1, 0] = pictureBox2;
@@ -162,11 +162,6 @@ namespace MSOPracticumUI
             mediator.Notify(this, "Load|" + BtnFile.Text);
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void BtnFile_TextChanged(object sender, EventArgs e)
         {
             string message = "Example|" + BtnFile.Text.ToString();
@@ -185,7 +180,7 @@ namespace MSOPracticumUI
         {
             TxtOutput.Text = String.Empty;
             // Resets everything related to path and forces a redraw
-            drawPath = false;
+            drawPathReady = false;
             path.Clear();
             Invalidate();
 
@@ -224,7 +219,7 @@ namespace MSOPracticumUI
         private void DrawPath_Paint(object sender, PaintEventArgs e)
         {
             // If the app is not ready to draw the path, return
-            if (!drawPath) return;
+            if (!drawPathReady) return;
 
             Pen pen = new Pen(Color.Blue, 3);
             for (int i = 1; i < path.Count; i++)

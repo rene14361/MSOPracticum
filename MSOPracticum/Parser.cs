@@ -271,6 +271,10 @@ public class Parser : IComponent
                 return true;
             else if (comp.Split(" ")[0] == "Move")
                 return true;
+            else if (comp.Split(" ")[0] == "RepeatUntil"
+                    && (comp.Split(" ")[1] == "WallAhead"
+                    || comp.Split(" ")[1] == "GridEdge"))
+            { return true; }
             else if (comp.Split().Count() < 3)
                 return false;
             else if (comp.Split(" ")[0] == "Repeat"
