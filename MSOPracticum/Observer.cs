@@ -8,8 +8,6 @@
 
     public interface ISubject
     {
-        public string state { get; set; }
-
         void Attach(IObserver observer);
 
         void Detach(IObserver observer);

@@ -678,7 +678,7 @@
             this.textBox1.TabIndex = 55;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             // 
-            // Form1
+            // ApplicationForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -736,7 +736,7 @@
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.BtnRun);
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.Name = "Form1";
+            this.Name = "ApplicationForm";
             this.Text = "Learn To Program!";
             this.Load += new System.EventHandler(this.ApplicationForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox21)).EndInit();
