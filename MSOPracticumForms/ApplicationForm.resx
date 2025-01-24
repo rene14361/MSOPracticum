@@ -65,7 +65,7 @@
         AAEAAAD/////AQAAAAAAAAAMAgAAAEZTeXN0ZW0uV2luZG93cy5Gb3JtcywgQ3VsdHVyZT1uZXV0cmFs
         LCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5BQEAAAAmU3lzdGVtLldpbmRvd3MuRm9ybXMu
         SW1hZ2VMaXN0U3RyZWFtZXIBAAAABERhdGEHAgIAAAAJAwAAAA8DAAAAHDEBAAJNU0Z0AUkBTAIBAQQB
-        AAGQAQEBkAEBAaABAAGgAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAYABAgIAAUABAQIAAQEB
+        AAGYAQEBmAEBAaABAAGgAQAE/wEJAQAI/wFCAU0BNgEEBgABNgEEAgABKAMAAYABAgIAAUABAQIAAQEB
         AAEIBgABIAEDFwABgAIAAYADAAKAAQABgAMAAYABAAGAAQACgAIAA8ABAAHAAdwBwAEAAfABygGmAQAB
         MwUAATMBAAEzAQABMwEAAjMCAAMWAQADHAEAAyIBAAMpAQADVQEAA00BAANCAQADOQEAAYABfAH/AQAC
         UAH/AQABkwEAAdYBAAH/AewBzAEAAcYB1gHvAQAB1gLnAQABkAGpAa0CAAH/ATMDAAFmAwABmQMAAcwC
@@ -1380,7 +1380,7 @@ Importing a file:
 Start by typing the path of your .txt file into the input mode combo box. The app assumes that anything besides the default options in the combo box are file paths. Following the previous step, you can either directly run the contents of the file by pressing run, or you can import the contents of the file into the input field by pressing the "Load File" button. 
 
 Exercise mode:
-Start by typing the of the .txt file containing the exercise into the input mode combo box. Press the "Load Exercise" button in order to start exercise mode. You can choose to leave exercise mode by pressing the "Load exercise" button again while not having the path to a valid exercise in the input mode combo box.
+Start by typing the path of the .txt file containing the pathfinding exercise's grid into the input mode combo box. Press the "Load Exercise" button in order to load the contents located at this path and to start exercise mode. You can choose to leave exercise mode by pressing the "Load exercise" button again while not having the path to a valid exercise in the input mode combo box.
 During exercise mode, the grid doesn't use the modulo values, so going outside of the 5x5 grid will result in a runtime exception. Trying to go into blocked cells will also cause a runtime exception. Both of these runtime exceptions are caught and displayed in the output field.
 
 Commands:
