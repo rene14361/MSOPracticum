@@ -2,9 +2,9 @@
 
 public class Example
 {   
-    private static string example1 = "Move 5\r\nTurn left\r\nMove 2\r\nTurn right\r\nMove 10\r\nTurn right\r\nMove 2\r\nMove 4\r\nTurn left\r\nTurn left\r\nMove 1";
-    private static string example2 = "Move 2\r\nRepeat 5 times\r\n\tMove 2\r\n\tTurn left\r\n\tMove 1\r\nTurn right\r\nMove 1";
-    private static string example3 = "Turn right\r\nMove 1\r\nRepeat 2 times\r\n\tMove 1\r\n\tTurn right\r\n\tRepeat 5 times\r\n\t\tMove 2\r\n\t\tTurn right\r\n\tMove 5\r\nTurn left\r\nRepeat 3 times\r\n\tMove 1";
+    private static string example1 = "Move 3\r\nTurn right\r\nMove 2\r\nTurn left\r\nTurn left\r\nMove 1\r\nTurn right\r\nMove 11";
+    private static string example2 = "Move 1\r\nTurn right\r\nRepeatUntil WallAhead\r\n\tMove 1\r\nTurn left\r\nMove 1\r\nRepeat 5 times\r\n\tMove 2\r\n\tTurn left\r\n\tMove 1";
+    private static string example3 = "RepeatUntil GridEdge\r\n\tMove 1\r\nTurn right\r\nMove 1\r\nRepeat 2 times\r\n\tRepeatUntil WallAhead\r\n\t\tMove 2\r\n\tTurn right\r\n\tRepeat 3 times\r\n\t\tTurn left\r\n\t\tMove 1";
 
     public static string GetExample()
     {
